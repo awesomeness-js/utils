@@ -1,0 +1,17 @@
+{
+    "name": "@awesomeness-js/utils",
+    "version": "1.0.0",
+    "description": "Awesomeness - Utils",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/awesomeness-js/utils.git"
+    },
+    "type": "module",
+    "main": "index.js",
+    "author": "Scott Forte",
+    "license": "MIT",
+    "publishConfig": {
+      "access": "public"
+    }
+  }
+  
