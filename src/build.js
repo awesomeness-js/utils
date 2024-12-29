@@ -1,6 +1,5 @@
 import { readdirSync, statSync, writeFileSync, readFileSync } from 'fs';
-import { dirname, join, sep } from 'path';
-import { fileURLToPath } from 'url';
+import { join, sep } from 'path';
 
 /**
  * Generates a output file that consolidates all src functions.
@@ -11,13 +10,6 @@ import { fileURLToPath } from 'url';
  * @returns {bool} - Returns true if the output file is generated successfully.
  */
 
-// Resolve __dirname equivalent for ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-function resolvePath(relativePath) {
-    return join(__dirname, relativePath);
-}
 
 function getAllFiles(base, dir, files = []) {
     const directory = join(base, dir);
@@ -127,10 +119,10 @@ function generateExports(src) {
 
 async function build({
     src = './src',
-    dest = ['./', 'index.js']
+    dest = './index.js'
 } = {}) {
     const indexContent = generateExports(src);
-    writeFileSync(join(...dest), indexContent);
+    writeFileSync(dest, indexContent);
     return true;
 }
 
