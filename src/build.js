@@ -1,5 +1,6 @@
 import { readdirSync, statSync, writeFileSync, readFileSync } from 'fs';
-import { join, sep } from 'path';
+import { dirname, join, sep } from 'path';
+import { fileURLToPath } from 'url';
 
 /**
  * Generates a output file that consolidates all src functions.
@@ -9,6 +10,14 @@ import { join, sep } from 'path';
  * @param {array} [options.dest=['./', 'index.js']] - The destination file.
  * @returns {bool} - Returns true if the output file is generated successfully.
  */
+
+// Resolve __dirname equivalent for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+function resolvePath(relativePath) {
+    return join(__dirname, relativePath);
+}
 
 function getAllFiles(base, dir, files = []) {
     const directory = join(base, dir);
@@ -78,7 +87,7 @@ function generateExports(src) {
         const parts = file.split(sep).filter(p => p !== '.');
         const functionName = parts.pop().replace('.js', '');
         const namespace = parts.join('_');
-        const importPath = './' + file.replace(/\.js$/, '').replace(/\\/g, '/');
+        const importPath = src + '/' + file.replace(/\.js$/, '').replace(/\\/g, '/');
         const filePath = join(src, file);
 
         // Extract JSDoc comment, if present

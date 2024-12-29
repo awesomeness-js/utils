@@ -3,7 +3,7 @@
  * It consolidates API functions for use in the application.
  * Do not edit manually.
  */
-import _build from './build.js';
+import _build from './src/build.js';
 
 export default {
     /**
