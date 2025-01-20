@@ -5,6 +5,8 @@
  */
 import _build from './src/build.js';
 
+export { _build as build };
+
 export default {
     /**
      * Generates a output file that consolidates all src functions.

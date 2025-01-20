@@ -70,6 +70,7 @@ function generateExports(src) {
     allFiles.push(...fnFiles);
 
     let imports = '';
+    let allExports = '';
     let apiObject = {};
 
 	let allComments = {};
@@ -94,6 +95,9 @@ function generateExports(src) {
         // Generate import statement with JSDoc comment if available
         imports += `import ${namespace}_${functionName} from '${importPath}.js';\n`;
 
+        // generate exports
+        if(!namespace){ allExports += `export { _${functionName} as ${functionName} };\n`; }
+
         // Populate the API object structure
         let current = apiObject;
         for (const part of parts) {
@@ -113,7 +117,7 @@ function generateExports(src) {
  */
 `;
 
-    return headerComment + imports + '\n' + apiContent;
+    return headerComment + imports + '\n' + allExports + '\n' + apiContent;
 }
 
 
