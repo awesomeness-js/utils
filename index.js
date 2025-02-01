@@ -8,6 +8,7 @@ import _convertBytes from './src/convertBytes.js';
 import _each from './src/each.js';
 import _eachAsync from './src/eachAsync.js';
 import _getAllFiles from './src/getAllFiles.js';
+import _md5 from './src/md5.js';
 import _toPennies from './src/toPennies.js';
 
 export { _build as build };
@@ -15,6 +16,7 @@ export { _convertBytes as convertBytes };
 export { _each as each };
 export { _eachAsync as eachAsync };
 export { _getAllFiles as getAllFiles };
+export { _md5 as md5 };
 export { _toPennies as toPennies };
 
 export default {
@@ -31,5 +33,6 @@ export default {
     each: _each,
     eachAsync: _eachAsync,
     getAllFiles: _getAllFiles,
+    md5: _md5,
     toPennies: _toPennies
 };
