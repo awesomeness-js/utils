@@ -4,6 +4,7 @@
  * Do not edit manually.
  */
 import _build from './src/build.js';
+import _combineFiles from './src/combineFiles.js';
 import _convertBytes from './src/convertBytes.js';
 import _each from './src/each.js';
 import _eachAsync from './src/eachAsync.js';
@@ -14,6 +15,7 @@ import _toPennies from './src/toPennies.js';
 import _uuid from './src/uuid.js';
 
 export { _build as build };
+export { _combineFiles as combineFiles };
 export { _convertBytes as convertBytes };
 export { _each as each };
 export { _eachAsync as eachAsync };
@@ -33,6 +35,7 @@ export default {
      * @returns {bool} - Returns true if the output file is generated successfully.
      */
     build: _build,
+    combineFiles: _combineFiles,
     convertBytes: _convertBytes,
     each: _each,
     eachAsync: _eachAsync,

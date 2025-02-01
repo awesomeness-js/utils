@@ -11,3 +11,9 @@ console.log({uuidTest});
 
 let isUUIDTest = utils.isUUID(uuidTest);
 console.log({isUUIDTest});
+
+let combineTest = utils.combineFiles('./src', 'js');
+console.log('combineTest', combineTest.length);
+
+let combineTestBrowser = utils.combineFiles('./src', 'js', { moduleToBrowser: true });
+console.log('combineTestBrowser', combineTestBrowser.length);
