@@ -3,16 +3,16 @@ import { readdirSync, statSync, readFileSync } from 'fs';
 
 function combineFiles(dir, fileType, {
 	minify = false,
-	moduleToBrowser = false
+	moduleToBrowser = false,
 } = {}) {
 
 		var returnString = "";
 
 		let stuff = readdirSync(dir);
 
-	// sort it
-	stuff = stuff.sort();
-	
+		// sort it
+		stuff = stuff.sort();
+		
 
 		stuff.forEach(stuff => {
 
@@ -45,9 +45,7 @@ function combineFiles(dir, fileType, {
 							thisData = thisData.replace('export default ', '');	
 
 						} else {
-
 							thisData = "";
-
 						}
 
 					}
