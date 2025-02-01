@@ -20,3 +20,8 @@ let combineTestBrowser = utils.combineFiles('./src', 'js', {
 });
 console.log('combineTestBrowser', combineTestBrowser.length);
 
+await utils.setLocalEnvs('./secrets/local.env');
+console.log('localEnv', process.env.JUST_A_TEST);
+
+await utils.setLocalEnvs('./secrets/dev.env');
+console.log('localEnv', process.env.JUST_A_TEST);

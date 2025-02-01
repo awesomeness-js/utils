@@ -11,6 +11,7 @@ import _eachAsync from './src/eachAsync.js';
 import _getAllFiles from './src/getAllFiles.js';
 import _isUUID from './src/isUUID.js';
 import _md5 from './src/md5.js';
+import _setLocalEnvs from './src/setLocalEnvs.js';
 import _toPennies from './src/toPennies.js';
 import _uuid from './src/uuid.js';
 
@@ -22,6 +23,7 @@ export { _eachAsync as eachAsync };
 export { _getAllFiles as getAllFiles };
 export { _isUUID as isUUID };
 export { _md5 as md5 };
+export { _setLocalEnvs as setLocalEnvs };
 export { _toPennies as toPennies };
 export { _uuid as uuid };
 
@@ -42,6 +44,7 @@ export default {
     getAllFiles: _getAllFiles,
     isUUID: _isUUID,
     md5: _md5,
+    setLocalEnvs: _setLocalEnvs,
     toPennies: _toPennies,
     uuid: _uuid
 };
