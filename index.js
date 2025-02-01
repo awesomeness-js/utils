@@ -4,8 +4,18 @@
  * Do not edit manually.
  */
 import _build from './src/build.js';
+import _convertBytes from './src/convertBytes.js';
+import _each from './src/each.js';
+import _eachAsync from './src/eachAsync.js';
+import _getAllFiles from './src/getAllFiles.js';
+import _toPennies from './src/toPennies.js';
 
 export { _build as build };
+export { _convertBytes as convertBytes };
+export { _each as each };
+export { _eachAsync as eachAsync };
+export { _getAllFiles as getAllFiles };
+export { _toPennies as toPennies };
 
 export default {
     /**
@@ -16,5 +26,10 @@ export default {
      * @param {array} [options.dest=['./', 'index.js']] - The destination file.
      * @returns {bool} - Returns true if the output file is generated successfully.
      */
-    build: _build
+    build: _build,
+    convertBytes: _convertBytes,
+    each: _each,
+    eachAsync: _eachAsync,
+    getAllFiles: _getAllFiles,
+    toPennies: _toPennies
 };
