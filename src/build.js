@@ -64,7 +64,7 @@ function extractJSDocComment(filePath) {
 }
 
 
-function generateExports(src) {
+function generateExports(src, exportRoots) {
     const allFiles = [];
     const fnFiles = getAllFiles(src, '.');
     allFiles.push(...fnFiles);
@@ -96,7 +96,7 @@ function generateExports(src) {
         imports += `import ${namespace}_${functionName} from '${importPath}.js';\n`;
 
         // generate exports
-        if(!namespace){ allExports += `export { _${functionName} as ${functionName} };\n`; }
+        if(exportRoots && !namespace){ allExports += `export { _${functionName} as ${functionName} };\n`; }
 
         // Populate the API object structure
         let current = apiObject;
@@ -123,9 +123,10 @@ function generateExports(src) {
 
 async function build({
     src = './src',
-    dest = './index.js'
+    dest = './index.js',
+    exportRoots = true
 } = {}) {
-    const indexContent = generateExports(src);
+    const indexContent = generateExports(src, exportRoots);
     writeFileSync(dest, indexContent);
     return true;
 }
