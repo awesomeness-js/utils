@@ -11,8 +11,6 @@ import _eachAsync from './src/eachAsync.js';
 import _getAllFiles from './src/getAllFiles.js';
 import _isUUID from './src/isUUID.js';
 import _md5 from './src/md5.js';
-import _namespace_deep_deep from './src/namespace/deep/deep.js';
-import _namespace_example from './src/namespace/example.js';
 import _setLocalEnvs from './src/setLocalEnvs.js';
 import _toPennies from './src/toPennies.js';
 import _uuid from './src/uuid.js';
@@ -49,16 +47,4 @@ export default {
     setLocalEnvs: _setLocalEnvs,
     toPennies: _toPennies,
     uuid: _uuid,
-    namespace: {
-        deep: {
-            /**
-             * A function that returns the input value.
-             *
-             * @param {*} something - The input value to be returned.
-             * @returns {*} The same value that was passed as input.
-             */
-            deep: _namespace_deep_deep,
-        },
-        example: _namespace_example,
-    },
 };

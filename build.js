@@ -6,5 +6,6 @@ build({
     ignore: [
         'ignoreMe.js',
         'ignoreFolder/*',
+        'namespaceExample/*',
     ],
 });
