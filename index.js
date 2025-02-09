@@ -11,6 +11,8 @@ import _eachAsync from './src/eachAsync.js';
 import _getAllFiles from './src/getAllFiles.js';
 import _isUUID from './src/isUUID.js';
 import _md5 from './src/md5.js';
+import _namespace_deep_deep from './src/namespace/deep/deep.js';
+import _namespace_example from './src/namespace/example.js';
 import _setLocalEnvs from './src/setLocalEnvs.js';
 import _toPennies from './src/toPennies.js';
 import _uuid from './src/uuid.js';
@@ -28,16 +30,16 @@ export { _toPennies as toPennies };
 export { _uuid as uuid };
 
 export default {
-    /**
-     * Generates a output file that consolidates all src functions.
-     *
-     * @param {Object} [options] - The options for generating the output file.
-     * @param {string} [options.src='./src'] - The source directory.
-     * @param {array} [options.dest=['./', 'index.js']] - The destination file.
-     * @returns {bool} - Returns true if the output file is generated successfully.
-     */
+    /**${match[1]}*/
     build: _build,
     combineFiles: _combineFiles,
+    /**
+     * Converts a given number of bytes into a more readable string format with appropriate units.
+     *
+     * @param {number} bytes - The number of bytes to convert.
+     * @param {number} [precision=2] - The number of decimal places to include in the result.
+     * @returns {string} The converted bytes in a string format with appropriate units.
+     */
     convertBytes: _convertBytes,
     each: _each,
     eachAsync: _eachAsync,
@@ -46,5 +48,17 @@ export default {
     md5: _md5,
     setLocalEnvs: _setLocalEnvs,
     toPennies: _toPennies,
-    uuid: _uuid
+    uuid: _uuid,
+    namespace: {
+        deep: {
+            /**
+             * A function that returns the input value.
+             *
+             * @param {*} something - The input value to be returned.
+             * @returns {*} The same value that was passed as input.
+             */
+            deep: _namespace_deep_deep,
+        },
+        example: _namespace_example,
+    },
 };

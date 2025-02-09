@@ -9,6 +9,9 @@ console.log({md5Test});
 let uuidTest = utils.uuid();
 console.log({uuidTest});
 
+let convertBytesTest = utils.convertBytes(1024);
+console.log({convertBytesTest});
+
 let isUUIDTest = utils.isUUID(uuidTest);
 console.log({isUUIDTest});
 

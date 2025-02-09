@@ -1,61 +1,48 @@
 import { readdirSync, statSync, writeFileSync, readFileSync } from 'fs';
 import { join, sep } from 'path';
 
-/**
- * Generates a output file that consolidates all src functions.
- *
- * @param {Object} [options] - The options for generating the output file.
- * @param {string} [options.src='./src'] - The source directory.
- * @param {array} [options.dest=['./', 'index.js']] - The destination file.
- * @returns {bool} - Returns true if the output file is generated successfully.
- */
+function shouldIgnore(filePath, ignorePatterns) {
+    const ignore = ignorePatterns.some(pattern => {
+        const normalizedPath = filePath.replace(/\\/g, '/');
+        const normalizedPattern = pattern.replace(/\\/g, '/');
+        if (normalizedPath === normalizedPattern) return true;
+        if (normalizedPattern.endsWith('/*')) {
+            const baseDir = normalizedPattern.slice(0, -2);
+            return normalizedPath.startsWith(baseDir + '/');
+        }
+        if (normalizedPattern.endsWith('/')) {
+            return normalizedPath === normalizedPattern.slice(0, -1) ||
+                   normalizedPath.startsWith(normalizedPattern);
+        }
+        return false;
+    });
+    console.log('shouldIgnore', filePath, ignore);
+    return ignore;
+}
 
-
-function getAllFiles(base, dir, files = []) {
+function getAllFiles(base, dir, files = [], ignore = []) {
     const directory = join(base, dir);
-	let sortedFiles = readdirSync(directory).sort();
+    const normalizedDir = dir.replace(/\\/g, '/');
+    if (ignore.some(pattern => normalizedDir.startsWith(pattern.replace(/\/\*$/, '')))) {
+        console.log('Ignoring folder:', normalizedDir);
+        return files;
+    }
+    let sortedFiles = readdirSync(directory).sort();
     sortedFiles.forEach(file => {
         const fullPath = join(directory, file);
-
-        if (
-            statSync(fullPath).isDirectory() &&
-            file !== '_template'
-        ) {
-            files = getAllFiles(base, join(dir, file), files);
-        } else if (file.endsWith('.js') && !file.match(/\..*\./)) { // Exclude files with two or more dots
-            files.push(join(dir, file));
+        const relativePath = join(dir, file).replace(/\\/g, '/');
+        if (shouldIgnore(relativePath, ignore)) {
+            console.log('Ignoring file:', relativePath);
+            return;
+        }
+        if (statSync(fullPath).isDirectory() && file !== '_template') {
+            getAllFiles(base, join(dir, file), files, ignore);
+        } else if (file.endsWith('.js') && !file.match(/\..*\./)) {
+            files.push(relativePath);
         }
     });
     return files;
 }
-
-
-function objectToString(obj, allComments, indent = 4, level = 1) {
-    const spaces = ' '.repeat(indent * level);
-    const entries = Object.entries(obj).map(([key, value]) => {
-
-        if (typeof value === 'object') {
-            return `${spaces}${key}: ${objectToString(value, allComments, indent, level + 1)}`;
-        }
-
-		if(key.startsWith('___')){
-			let realKey = key.replace('___', '');
-
-			// split comment based on lines and insert spaces
-			let comment = allComments[value];
-			comment = comment.split('\n').map((line) => `${spaces.replace(' ', '')} ${line}`).join('\n');
-
-			return `${comment}\n${spaces}${realKey}: ${value}`;
-		} else {
-			return `${spaces}${key}: ${value}`;
-		}
-		
-    });
-
-	return `{\n${entries.join(',\n')}\n${' '.repeat(indent * (level - 1))}}`;
-
-}
-
 
 function extractJSDocComment(filePath) {
     const fileContent = readFileSync(filePath, 'utf8');
@@ -63,53 +50,112 @@ function extractJSDocComment(filePath) {
     return match ? `/**${match[1]}*/` : '';
 }
 
+/**
+ * Generates the export file contents.
+ *
+ * For each file, if includeComments is true, its JSDoc comment is placed
+ * immediately above its key in the default export object.
+ */
+function generateExports(src, exportRoots, ignore, includeComments = false) {
+    const allFiles = getAllFiles(src, '.', [], ignore);
+    let importStatements = '';
+    let flatExports = [];
+    let nestedExports = {}; // Build a tree for nested exports
 
-function generateExports(src, exportRoots) {
-    const allFiles = [];
-    const fnFiles = getAllFiles(src, '.');
-    allFiles.push(...fnFiles);
+    // Create file info objects
+    const fileDataList = allFiles.map(file => {
+        const normalizedFile = file.replace(/\\/g, '/');
+        const parts = normalizedFile.split('/');
+        const fileName = parts.pop();
+        const functionName = fileName.replace(/\.js$/, '');
+        const namespaceParts = parts;
+        const importVarName = namespaceParts.length > 0
+            ? '_' + [...namespaceParts, functionName].join('_')
+            : '_' + functionName;
+        const importPath = src + '/' + normalizedFile.replace(/\.js$/, '');
+        const jsDocComment = includeComments ? extractJSDocComment(join(src, normalizedFile)) : '';
+        return { normalizedFile, parts: namespaceParts, functionName, importVarName, importPath, jsDocComment };
+    });
 
-    let imports = '';
-    let allExports = '';
-    let apiObject = {};
+    // Generate import statements (without comments)
+    fileDataList.forEach(({ importVarName, importPath }) => {
+        importStatements += `import ${importVarName} from '${importPath}.js';\n`;
+    });
 
-	let allComments = {};
-
-
-    for (const file of allFiles) {
-        const parts = file.split(sep).filter(p => p !== '.');
-        const functionName = parts.pop().replace('.js', '');
-        const namespace = parts.join('_');
-        const importPath = src + '/' + file.replace(/\.js$/, '').replace(/\\/g, '/');
-        const filePath = join(src, file);
-
-        // Extract JSDoc comment, if present
-		let hasComment = '';
-        const jsDocComment = extractJSDocComment(filePath);
-		if(jsDocComment){
-			allComments[`${namespace}_${functionName}`] = jsDocComment
-			hasComment = '___'
-		}
-
-
-        // Generate import statement with JSDoc comment if available
-        imports += `import ${namespace}_${functionName} from '${importPath}.js';\n`;
-
-        // generate exports
-        if(exportRoots && !namespace){ allExports += `export { _${functionName} as ${functionName} };\n`; }
-
-        // Populate the API object structure
-        let current = apiObject;
-        for (const part of parts) {
-            current[part] = current[part] || {};
-            current = current[part];
+    // Build flat exports and nested export tree.
+    fileDataList.forEach(({ parts, functionName, importVarName, jsDocComment }) => {
+        if (parts.length === 0) {
+            flatExports.push({ functionName, importVarName, jsDocComment });
+        } else {
+            let current = nestedExports;
+            parts.forEach(part => {
+                if (!current[part]) {
+                    current[part] = {};
+                }
+                current = current[part];
+            });
+            // Store the leaf export along with its JSDoc comment.
+            current[functionName] = { importVarName, jsDocComment };
         }
-        current[`${hasComment}${functionName}`] = `${namespace}_${functionName}`;
+    });
+
+    // Generate flat export statements for default export object.
+    let flatExportLines = '';
+    flatExports.forEach(({ functionName, importVarName, jsDocComment }) => {
+        if (exportRoots) {
+            if (includeComments && jsDocComment) {
+                // Indent each comment line by 4 spaces.
+                const indentedComment = jsDocComment.split('\n').map(line => '    ' + line).join('\n');
+                flatExportLines += indentedComment + '\n';
+            }
+            flatExportLines += `    ${functionName}: ${importVarName},\n`;
+        }
+    });
+
+    // Recursively generate code for nested namespaces,
+    // placing JSDoc comments above each leaf key.
+    function generateNamespaceCode(nsObj, indentLevel) {
+        const indent = '    '.repeat(indentLevel);
+        let lines = ['{'];
+        for (const key in nsObj) {
+            const value = nsObj[key];
+            if (typeof value === 'object' && value.hasOwnProperty('importVarName')) {
+                // Leaf node.
+                if (includeComments && value.jsDocComment) {
+                    const indentedComment = value.jsDocComment.split('\n').map(line => indent + '    ' + line).join('\n');
+                    lines.push(indentedComment);
+                }
+                lines.push(`${indent}    ${key}: ${value.importVarName},`);
+            } else {
+                // Nested namespace.
+                const nestedCode = generateNamespaceCode(value, indentLevel + 1);
+                lines.push(`${indent}    ${key}: ${nestedCode},`);
+            }
+        }
+        lines.push(indent + '}');
+        return lines.join('\n');
     }
 
-    const apiContent = 'export default ' + objectToString(apiObject, allComments) + ';';
+    // Generate the default export object.
+    let namespaceExportLines = '';
+    for (const ns in nestedExports) {
+        const nsCode = generateNamespaceCode(nestedExports[ns], 1);
+        namespaceExportLines += `    ${ns}: ${nsCode},\n`;
+    }
 
-    // Add a header comment
+    const defaultExportCode = 'export default {\n' +
+        flatExportLines +
+        namespaceExportLines +
+        '};';
+
+    // Generate individual flat export statements.
+    let flatExportStatements = '';
+    flatExports.forEach(({ functionName, importVarName }) => {
+        if (exportRoots) {
+            flatExportStatements += `export { ${importVarName} as ${functionName} };\n`;
+        }
+    });
+
     const headerComment = `/**
  * This file is auto-generated by the build script.
  * It consolidates API functions for use in the application.
@@ -117,16 +163,21 @@ function generateExports(src, exportRoots) {
  */
 `;
 
-    return headerComment + imports + '\n' + allExports + '\n' + apiContent;
+    return headerComment +
+           importStatements + '\n' +
+           flatExportStatements +
+           '\n' +
+           defaultExportCode;
 }
-
 
 async function build({
     src = './src',
     dest = './index.js',
-    exportRoots = true
+    exportRoots = true,
+    ignore = [],
+    includeComments = true
 } = {}) {
-    const indexContent = generateExports(src, exportRoots);
+    const indexContent = generateExports(src, exportRoots, ignore, includeComments);
     writeFileSync(dest, indexContent);
     return true;
 }
