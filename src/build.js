@@ -24,7 +24,7 @@ function getAllFiles(base, dir, files = [], ignore = []) {
     const directory = join(base, dir);
     const normalizedDir = dir.replace(/\\/g, '/');
     if (ignore.some(pattern => normalizedDir.startsWith(pattern.replace(/\/\*$/, '')))) {
-        console.log('Ignoring folder:', normalizedDir);
+        //.log('Ignoring folder:', normalizedDir);
         return files;
     }
     let sortedFiles = readdirSync(directory).sort();
@@ -32,7 +32,7 @@ function getAllFiles(base, dir, files = [], ignore = []) {
         const fullPath = join(directory, file);
         const relativePath = join(dir, file).replace(/\\/g, '/');
         if (shouldIgnore(relativePath, ignore)) {
-            console.log('Ignoring file:', relativePath);
+            //console.log('Ignoring file:', relativePath);
             return;
         }
         if (statSync(fullPath).isDirectory() && file !== '_template') {
