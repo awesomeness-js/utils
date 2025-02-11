@@ -16,7 +16,7 @@ function shouldIgnore(filePath, ignorePatterns) {
         }
         return false;
     });
-    console.log('shouldIgnore', filePath, ignore);
+    //console.log('shouldIgnore', filePath, ignore);
     return ignore;
 }
 
