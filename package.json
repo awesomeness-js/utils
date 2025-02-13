@@ -1,6 +1,6 @@
 {
     "name": "@awesomeness-js/utils",
-    "version": "1.0.15",
+    "version": "1.0.16",
     "description": "Awesomeness - Utils",
     "repository": {
       "type": "git",
@@ -12,6 +12,7 @@
       "postBuild": "node ./build/postBuild.js"
     },    
     "type": "module",
+    "types": "./types/index.d.ts",
     "main": "index.js",
     "author": "Scott Forte",
     "license": "MIT",
