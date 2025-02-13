@@ -1,11 +1,16 @@
 {
     "name": "@awesomeness-js/utils",
-    "version": "1.0.14",
+    "version": "1.0.15",
     "description": "Awesomeness - Utils",
     "repository": {
       "type": "git",
       "url": "git+https://github.com/awesomeness-js/utils.git"
     },
+    "scripts": {
+      "prebuild": "node ./build/build.js",
+      "build": "tsc && npm run postBuild",
+      "postBuild": "node ./build/postBuild.js"
+    },    
     "type": "module",
     "main": "index.js",
     "author": "Scott Forte",

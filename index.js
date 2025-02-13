@@ -13,6 +13,16 @@ import _isUUID from './src/isUUID.js';
 import _md5 from './src/md5.js';
 import _setLocalEnvs from './src/setLocalEnvs.js';
 import _toPennies from './src/toPennies.js';
+import _utils_buildExportsTree from './src/utils/buildExportsTree.js';
+import _utils_buildFileDataList from './src/utils/buildFileDataList.js';
+import _utils_extractJSDocComment from './src/utils/extractJSDocComment.js';
+import _utils_generateFile from './src/utils/generateFile.js';
+import _utils_generateFlatExportLines from './src/utils/generateFlatExportLines.js';
+import _utils_generateImportStatements from './src/utils/generateImportStatements.js';
+import _utils_generateNamedExports from './src/utils/generateNamedExports.js';
+import _utils_generateNamespaceCode from './src/utils/generateNamespaceCode.js';
+import _utils_generateNamespaceExportLines from './src/utils/generateNamespaceExportLines.js';
+import _utils_shouldIgnore from './src/utils/shouldIgnore.js';
 import _uuid from './src/uuid.js';
 
 export { _build as build };
@@ -28,7 +38,18 @@ export { _toPennies as toPennies };
 export { _uuid as uuid };
 
 export default {
-    /**${match[1]}*/
+    /**
+     * Builds a file from the specified source directory and writes it to the destination file.
+     *
+     * @param {Object} options - The options for the build process.
+     * @param {string} [options.src='./src'] - The source directory to build from.
+     * @param {string} [options.dest='./index.js'] - The destination file to write the built content to.
+     * @param {boolean} [options.exportRoots=true] - Whether to export root files.
+     * @param {string[]} [options.ignore=[]] - An array of file patterns to ignore.
+     * @param {boolean} [options.includeComments=true] - Whether to include comments in the generated file.
+     * @param {boolean} [options.dts=false] - Whether to generate TypeScript declaration files.
+     * @returns {Promise<boolean>} A promise that resolves to true when the build is complete.
+     */
     build: _build,
     combineFiles: _combineFiles,
     /**
@@ -47,4 +68,16 @@ export default {
     setLocalEnvs: _setLocalEnvs,
     toPennies: _toPennies,
     uuid: _uuid,
+    utils: {
+        buildExportsTree: _utils_buildExportsTree,
+        buildFileDataList: _utils_buildFileDataList,
+        extractJSDocComment: _utils_extractJSDocComment,
+        generateFile: _utils_generateFile,
+        generateFlatExportLines: _utils_generateFlatExportLines,
+        generateImportStatements: _utils_generateImportStatements,
+        generateNamedExports: _utils_generateNamedExports,
+        generateNamespaceCode: _utils_generateNamespaceCode,
+        generateNamespaceExportLines: _utils_generateNamespaceExportLines,
+        shouldIgnore: _utils_shouldIgnore,
+    },
 };
