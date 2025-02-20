@@ -1,7 +1,12 @@
 import utils from './index.js';
 
-let fileList = utils.getAllFiles('./src');
-console.log({fileList});
+
+let fileList2 = utils.getAllFiles('./secrets', {
+    fileTypes: ['.env'],
+    ignore: ['dev.env']
+});
+
+console.log({fileList2});
 
 let md5Test = utils.md5('test');
 console.log({md5Test});

@@ -3,7 +3,10 @@ import extractJSDocComment from './extractJSDocComment.js';
 import { join } from 'path';
 
 export default function buildFileDataList(src, ignore, includeComments) {
-    const allFiles = getAllFiles(src, '.', [], ignore);
+    const allFiles = getAllFiles(src, { 
+        ignore,
+        fileTypes: ['.js']
+    });
     return allFiles.map(file => {
         const normalizedFile = file.replace(/\\/g, '/');
         const parts = normalizedFile.split('/');
