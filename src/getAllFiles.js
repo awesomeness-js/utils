@@ -3,50 +3,46 @@ import { join } from 'path';
 import shouldIgnore from './utils/shouldIgnore.js';
 
 export default function getAllFiles(base, {
-	dir = '.',
-	files = [], 
-	ignore = [],
-	fileTypes = []
+    dir = '.',
+    files = [], 
+    ignore = [],
+    fileTypes = []
 } = {}) {
 
-	const directory = join(base, dir);
-	const normalizedDir = dir.replace(/\\/g, '/');
+    const directory = join(base, dir);
 
-	if (ignore.some(pattern => normalizedDir.startsWith(pattern.replace(/\/\*$/, '')))) {
-		return files;
-	}
+    const sortedFiles = readdirSync(directory).sort();
 
-	const sortedFiles = readdirSync(directory).sort();
+    sortedFiles.forEach(file => {
+        const fullPath = join(directory, file);
+        // 1) Generate the original "relative path"
+        const relativePath = join(dir, file).replace(/\\/g, '/');
 
-	sortedFiles.forEach(file => {
-		
-		const fullPath = join(directory, file);
-		const relativePath = join(dir, file).replace(/\\/g, '/');
-		
-		if (shouldIgnore(relativePath, ignore)) {
-			return;
-		}
+        // 2) Prepend a slash so patterns like "/css/*.js" will match "/css/some.js"
+        const pathForIgnore = '/' + relativePath.replace(/^\/*/, '');
 
-		if (statSync(fullPath).isDirectory()) {
+        // 3) Check with the leading slash path
+        if (shouldIgnore(pathForIgnore, ignore)) {
+            return;
+        }
 
-			getAllFiles(base, {
-				dir: join(dir, file),
-				files, 
-				ignore
-			});
+        // Recurse if it's a directory
+        if (statSync(fullPath).isDirectory()) {
+            getAllFiles(base, {
+                dir: join(dir, file),
+                files,
+                ignore,
+                fileTypes
+            });
+        } else {
+            // Filter by file types if specified
+            if (fileTypes.length > 0 && !fileTypes.some(ext => file.endsWith(ext))) {
+                return;
+            }
+            // 4) Store the original relative path (without leading slash) in `files` if you prefer
+            files.push(relativePath);
+        }
+    });
 
-		} else {
-
-			if(fileTypes.length > 0) {
-				if (!fileTypes.some(ext => file.endsWith(ext))) return;
-			}
-
-			files.push(relativePath);
-
-		}
-
-	});
-
-	return files;
-
+    return files;
 }

@@ -9,6 +9,8 @@ import _convertBytes from './src/convertBytes.js';
 import _each from './src/each.js';
 import _eachAsync from './src/eachAsync.js';
 import _getAllFiles from './src/getAllFiles.js';
+import _ignoreFolder_ignoreMe from './src/ignoreFolder/ignoreMe.js';
+import _ignoreMe from './src/ignoreMe.js';
 import _isUUID from './src/isUUID.js';
 import _md5 from './src/md5.js';
 import _setLocalEnvs from './src/setLocalEnvs.js';
@@ -31,6 +33,7 @@ export { _convertBytes as convertBytes };
 export { _each as each };
 export { _eachAsync as eachAsync };
 export { _getAllFiles as getAllFiles };
+export { _ignoreMe as ignoreMe };
 export { _isUUID as isUUID };
 export { _md5 as md5 };
 export { _setLocalEnvs as setLocalEnvs };
@@ -63,11 +66,15 @@ export default {
     each: _each,
     eachAsync: _eachAsync,
     getAllFiles: _getAllFiles,
+    ignoreMe: _ignoreMe,
     isUUID: _isUUID,
     md5: _md5,
     setLocalEnvs: _setLocalEnvs,
     toPennies: _toPennies,
     uuid: _uuid,
+    ignoreFolder: {
+        ignoreMe: _ignoreFolder_ignoreMe,
+    },
     utils: {
         buildExportsTree: _utils_buildExportsTree,
         buildFileDataList: _utils_buildFileDataList,

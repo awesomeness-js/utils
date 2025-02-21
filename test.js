@@ -1,10 +1,17 @@
 import utils from './index.js';
 
-
-let fileList2 = utils.getAllFiles('./secrets', {
-    fileTypes: ['.env'],
-    ignore: ['dev.env']
-});
+let fileList2 = utils.getAllFiles('./test', {
+   // fileTypes: ['.css'],
+   // fileTypes: ['.js'],
+   ignore: [
+        "/ignoreFolder", 
+        "/ignoreFolder2/", 
+        "*.env",
+        "*.test.js",
+        "/css/*.js",
+        "/js/*.css"
+    ]
+})
 
 console.log({fileList2});
 

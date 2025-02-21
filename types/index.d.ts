@@ -9,6 +9,8 @@ import type _convertBytes from './convertBytes';
 import type _each from './each';
 import type _eachAsync from './eachAsync';
 import type _getAllFiles from './getAllFiles';
+import type _ignoreFolder_ignoreMe from './ignoreFolder/ignoreMe';
+import type _ignoreMe from './ignoreMe';
 import type _isUUID from './isUUID';
 import type _md5 from './md5';
 import type _setLocalEnvs from './setLocalEnvs';
@@ -31,6 +33,7 @@ export declare const convertBytes: typeof _convertBytes;
 export declare const each: typeof _each;
 export declare const eachAsync: typeof _eachAsync;
 export declare const getAllFiles: typeof _getAllFiles;
+export declare const ignoreMe: typeof _ignoreMe;
 export declare const isUUID: typeof _isUUID;
 export declare const md5: typeof _md5;
 export declare const setLocalEnvs: typeof _setLocalEnvs;
@@ -63,11 +66,15 @@ declare const _default: {
     each: typeof _each;
     eachAsync: typeof _eachAsync;
     getAllFiles: typeof _getAllFiles;
+    ignoreMe: typeof _ignoreMe;
     isUUID: typeof _isUUID;
     md5: typeof _md5;
     setLocalEnvs: typeof _setLocalEnvs;
     toPennies: typeof _toPennies;
     uuid: typeof _uuid;
+    ignoreFolder: {
+        ignoreMe: typeof _ignoreFolder_ignoreMe,
+    },
     utils: {
         buildExportsTree: typeof _utils_buildExportsTree,
         buildFileDataList: typeof _utils_buildFileDataList,
