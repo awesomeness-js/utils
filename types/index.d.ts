@@ -6,9 +6,12 @@
 import type _build from './build';
 import type _combineFiles from './combineFiles';
 import type _convertBytes from './convertBytes';
+import type _decrypt from './decrypt';
 import type _each from './each';
 import type _eachAsync from './eachAsync';
+import type _encrypt from './encrypt';
 import type _getAllFiles from './getAllFiles';
+import type _hashPassword from './hashPassword';
 import type _ignoreFolder_ignoreMe from './ignoreFolder/ignoreMe';
 import type _ignoreMe from './ignoreMe';
 import type _isUUID from './isUUID';
@@ -26,19 +29,24 @@ import type _utils_generateNamespaceCode from './utils/generateNamespaceCode';
 import type _utils_generateNamespaceExportLines from './utils/generateNamespaceExportLines';
 import type _utils_shouldIgnore from './utils/shouldIgnore';
 import type _uuid from './uuid';
+import type _validatePassword from './validatePassword';
 
 export declare const build: typeof _build;
 export declare const combineFiles: typeof _combineFiles;
 export declare const convertBytes: typeof _convertBytes;
+export declare const decrypt: typeof _decrypt;
 export declare const each: typeof _each;
 export declare const eachAsync: typeof _eachAsync;
+export declare const encrypt: typeof _encrypt;
 export declare const getAllFiles: typeof _getAllFiles;
+export declare const hashPassword: typeof _hashPassword;
 export declare const ignoreMe: typeof _ignoreMe;
 export declare const isUUID: typeof _isUUID;
 export declare const md5: typeof _md5;
 export declare const setLocalEnvs: typeof _setLocalEnvs;
 export declare const toPennies: typeof _toPennies;
 export declare const uuid: typeof _uuid;
+export declare const validatePassword: typeof _validatePassword;
 
 declare const _default: {
     /**
@@ -63,15 +71,19 @@ declare const _default: {
      * @returns {string} The converted bytes in a string format with appropriate units.
      */
     convertBytes: typeof _convertBytes;
+    decrypt: typeof _decrypt;
     each: typeof _each;
     eachAsync: typeof _eachAsync;
+    encrypt: typeof _encrypt;
     getAllFiles: typeof _getAllFiles;
+    hashPassword: typeof _hashPassword;
     ignoreMe: typeof _ignoreMe;
     isUUID: typeof _isUUID;
     md5: typeof _md5;
     setLocalEnvs: typeof _setLocalEnvs;
     toPennies: typeof _toPennies;
     uuid: typeof _uuid;
+    validatePassword: typeof _validatePassword;
     ignoreFolder: {
         ignoreMe: typeof _ignoreFolder_ignoreMe,
     },

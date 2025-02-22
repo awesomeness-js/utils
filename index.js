@@ -6,9 +6,12 @@
 import _build from './src/build.js';
 import _combineFiles from './src/combineFiles.js';
 import _convertBytes from './src/convertBytes.js';
+import _decrypt from './src/decrypt.js';
 import _each from './src/each.js';
 import _eachAsync from './src/eachAsync.js';
+import _encrypt from './src/encrypt.js';
 import _getAllFiles from './src/getAllFiles.js';
+import _hashPassword from './src/hashPassword.js';
 import _ignoreFolder_ignoreMe from './src/ignoreFolder/ignoreMe.js';
 import _ignoreMe from './src/ignoreMe.js';
 import _isUUID from './src/isUUID.js';
@@ -26,19 +29,24 @@ import _utils_generateNamespaceCode from './src/utils/generateNamespaceCode.js';
 import _utils_generateNamespaceExportLines from './src/utils/generateNamespaceExportLines.js';
 import _utils_shouldIgnore from './src/utils/shouldIgnore.js';
 import _uuid from './src/uuid.js';
+import _validatePassword from './src/validatePassword.js';
 
 export { _build as build };
 export { _combineFiles as combineFiles };
 export { _convertBytes as convertBytes };
+export { _decrypt as decrypt };
 export { _each as each };
 export { _eachAsync as eachAsync };
+export { _encrypt as encrypt };
 export { _getAllFiles as getAllFiles };
+export { _hashPassword as hashPassword };
 export { _ignoreMe as ignoreMe };
 export { _isUUID as isUUID };
 export { _md5 as md5 };
 export { _setLocalEnvs as setLocalEnvs };
 export { _toPennies as toPennies };
 export { _uuid as uuid };
+export { _validatePassword as validatePassword };
 
 export default {
     /**
@@ -63,15 +71,19 @@ export default {
      * @returns {string} The converted bytes in a string format with appropriate units.
      */
     convertBytes: _convertBytes,
+    decrypt: _decrypt,
     each: _each,
     eachAsync: _eachAsync,
+    encrypt: _encrypt,
     getAllFiles: _getAllFiles,
+    hashPassword: _hashPassword,
     ignoreMe: _ignoreMe,
     isUUID: _isUUID,
     md5: _md5,
     setLocalEnvs: _setLocalEnvs,
     toPennies: _toPennies,
     uuid: _uuid,
+    validatePassword: _validatePassword,
     ignoreFolder: {
         ignoreMe: _ignoreFolder_ignoreMe,
     },
