@@ -41,10 +41,10 @@ console.log('localEnv', process.env.JUST_A_TEST);
 await utils.setLocalEnvs('./secrets/dev.env');
 console.log('localEnv', process.env.JUST_A_TEST);
 
-const storedHash = utils.hashPassword('mySecret123');
+const storedHash = utils.password.hash('mySecret123');
 console.log('Stored Hash:', storedHash);
-console.log('Is valid (correct password)?', utils.validatePassword('mySecret123', storedHash));
-console.log('Is valid (wrong password)?', utils.validatePassword('wrongPassword', storedHash));
+console.log('Is valid (correct password)?', utils.password.check('mySecret123', storedHash));
+console.log('Is valid (wrong password)?', utils.password.check('wrongPassword', storedHash));
 
 
 // Example 256-bit key for AES-256
