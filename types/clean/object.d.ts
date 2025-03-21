@@ -1,2 +1,2 @@
 export default cleanObject;
-declare function cleanObject(obj: any, schema: any): {};
+declare function cleanObject(obj: any, schema?: {}): {};

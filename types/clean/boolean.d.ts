@@ -1,3 +1,3 @@
-export default function cleanBoolean(x: any, { required }: {
+export default function cleanBoolean(x: any, { required }?: {
     required?: boolean;
 }): any;
