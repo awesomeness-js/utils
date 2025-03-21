@@ -20,7 +20,10 @@ function combineFiles(dir, fileType, {
 			
 			if(isDir){
 
-				returnString += combineFiles(`${dir}/${stuff}`, fileType);  
+				returnString += combineFiles(`${dir}/${stuff}`, fileType, {
+					minify,
+					moduleToBrowser,
+				});  
 
 			} else {
 
@@ -30,6 +33,7 @@ function combineFiles(dir, fileType, {
 				let file = stuff.split('.');
 				let ext = file[file.length - 1];
 
+
 				if(ext === fileType){
 					
 					let thisData = readFileSync(`${dir}/${stuff}`, 'utf8');
@@ -38,6 +42,11 @@ function combineFiles(dir, fileType, {
 
 						// can this file be converted to browser?
 						let browserFriendly = thisData.startsWith('export default ');
+
+						if(browserFriendly){
+							browserFriendly = thisData.includes('import') === false; // no imports allowed
+						}
+
 
 						if(browserFriendly){
 

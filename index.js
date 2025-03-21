@@ -4,6 +4,15 @@
  * Do not edit manually.
  */
 import _build from './src/build.js';
+import _clean_array from './src/clean/array.js';
+import _clean_boolean from './src/clean/boolean.js';
+import _clean_integer from './src/clean/integer.js';
+import _clean_number from './src/clean/number.js';
+import _clean_object from './src/clean/object.js';
+import _clean_string from './src/clean/string.js';
+import _clean_thing from './src/clean/thing.js';
+import _clean_timestamp from './src/clean/timestamp.js';
+import _clean_uuid from './src/clean/uuid.js';
 import _combineFiles from './src/combineFiles.js';
 import _convertBytes from './src/convertBytes.js';
 import _decrypt from './src/decrypt.js';
@@ -18,6 +27,7 @@ import _md5 from './src/md5.js';
 import _password_check from './src/password/check.js';
 import _password_hash from './src/password/hash.js';
 import _setLocalEnvs from './src/setLocalEnvs.js';
+import _thingType from './src/thingType.js';
 import _toPennies from './src/toPennies.js';
 import _utils_buildExportsTree from './src/utils/buildExportsTree.js';
 import _utils_buildFileDataList from './src/utils/buildFileDataList.js';
@@ -30,6 +40,7 @@ import _utils_generateNamespaceCode from './src/utils/generateNamespaceCode.js';
 import _utils_generateNamespaceExportLines from './src/utils/generateNamespaceExportLines.js';
 import _utils_shouldIgnore from './src/utils/shouldIgnore.js';
 import _uuid from './src/uuid.js';
+import _validateSchema from './src/validateSchema.js';
 
 export { _build as build };
 export { _combineFiles as combineFiles };
@@ -43,8 +54,10 @@ export { _ignoreMe as ignoreMe };
 export { _isUUID as isUUID };
 export { _md5 as md5 };
 export { _setLocalEnvs as setLocalEnvs };
+export { _thingType as thingType };
 export { _toPennies as toPennies };
 export { _uuid as uuid };
+export { _validateSchema as validateSchema };
 
 export default {
     /**
@@ -70,6 +83,15 @@ export default {
      */
     convertBytes: _convertBytes,
     decrypt: _decrypt,
+    /**
+     * Iterates over elements of an array or properties of an object, invoking a callback for each element/property.
+     * The iteration stops if the callback returns `false`.
+     *
+     * @example each({ a: 1, b: 2 }, (value, key) => { console.log(value, key); });
+     * @param {Object|Array} objectOrArray - The object or array to iterate over.
+     * @param {Function} callback - The function to invoke per iteration. It is invoked with two arguments: (value, key/index).
+     * @returns {void}
+     */
     each: _each,
     eachAsync: _eachAsync,
     encrypt: _encrypt,
@@ -78,8 +100,21 @@ export default {
     isUUID: _isUUID,
     md5: _md5,
     setLocalEnvs: _setLocalEnvs,
+    thingType: _thingType,
     toPennies: _toPennies,
     uuid: _uuid,
+    validateSchema: _validateSchema,
+    clean: {
+        array: _clean_array,
+        boolean: _clean_boolean,
+        integer: _clean_integer,
+        number: _clean_number,
+        object: _clean_object,
+        string: _clean_string,
+        thing: _clean_thing,
+        timestamp: _clean_timestamp,
+        uuid: _clean_uuid,
+    },
     ignoreFolder: {
         ignoreMe: _ignoreFolder_ignoreMe,
     },

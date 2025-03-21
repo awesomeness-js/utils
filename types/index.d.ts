@@ -4,6 +4,15 @@
  * Do not edit manually.
  */
 import type _build from './build';
+import type _clean_array from './clean/array';
+import type _clean_boolean from './clean/boolean';
+import type _clean_integer from './clean/integer';
+import type _clean_number from './clean/number';
+import type _clean_object from './clean/object';
+import type _clean_string from './clean/string';
+import type _clean_thing from './clean/thing';
+import type _clean_timestamp from './clean/timestamp';
+import type _clean_uuid from './clean/uuid';
 import type _combineFiles from './combineFiles';
 import type _convertBytes from './convertBytes';
 import type _decrypt from './decrypt';
@@ -18,6 +27,7 @@ import type _md5 from './md5';
 import type _password_check from './password/check';
 import type _password_hash from './password/hash';
 import type _setLocalEnvs from './setLocalEnvs';
+import type _thingType from './thingType';
 import type _toPennies from './toPennies';
 import type _utils_buildExportsTree from './utils/buildExportsTree';
 import type _utils_buildFileDataList from './utils/buildFileDataList';
@@ -30,6 +40,7 @@ import type _utils_generateNamespaceCode from './utils/generateNamespaceCode';
 import type _utils_generateNamespaceExportLines from './utils/generateNamespaceExportLines';
 import type _utils_shouldIgnore from './utils/shouldIgnore';
 import type _uuid from './uuid';
+import type _validateSchema from './validateSchema';
 
 export declare const build: typeof _build;
 export declare const combineFiles: typeof _combineFiles;
@@ -43,8 +54,10 @@ export declare const ignoreMe: typeof _ignoreMe;
 export declare const isUUID: typeof _isUUID;
 export declare const md5: typeof _md5;
 export declare const setLocalEnvs: typeof _setLocalEnvs;
+export declare const thingType: typeof _thingType;
 export declare const toPennies: typeof _toPennies;
 export declare const uuid: typeof _uuid;
+export declare const validateSchema: typeof _validateSchema;
 
 declare const _default: {
     /**
@@ -70,6 +83,15 @@ declare const _default: {
      */
     convertBytes: typeof _convertBytes;
     decrypt: typeof _decrypt;
+    /**
+     * Iterates over elements of an array or properties of an object, invoking a callback for each element/property.
+     * The iteration stops if the callback returns `false`.
+     *
+     * @example each({ a: 1, b: 2 }, (value, key) => { console.log(value, key); });
+     * @param {Object|Array} objectOrArray - The object or array to iterate over.
+     * @param {Function} callback - The function to invoke per iteration. It is invoked with two arguments: (value, key/index).
+     * @returns {void}
+     */
     each: typeof _each;
     eachAsync: typeof _eachAsync;
     encrypt: typeof _encrypt;
@@ -78,8 +100,21 @@ declare const _default: {
     isUUID: typeof _isUUID;
     md5: typeof _md5;
     setLocalEnvs: typeof _setLocalEnvs;
+    thingType: typeof _thingType;
     toPennies: typeof _toPennies;
     uuid: typeof _uuid;
+    validateSchema: typeof _validateSchema;
+    clean: {
+        array: typeof _clean_array,
+        boolean: typeof _clean_boolean,
+        integer: typeof _clean_integer,
+        number: typeof _clean_number,
+        object: typeof _clean_object,
+        string: typeof _clean_string,
+        thing: typeof _clean_thing,
+        timestamp: typeof _clean_timestamp,
+        uuid: typeof _clean_uuid,
+    },
     ignoreFolder: {
         ignoreMe: typeof _ignoreFolder_ignoreMe,
     },

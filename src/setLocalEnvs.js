@@ -12,7 +12,14 @@ export default async (localSecretsPath = './secrets/local.env') => {
 		if(line[0] === '#'){ continue; }
 
 		let parts = line.split('=');
+
 		if(parts.length === 2){
+
+			// remove \r
+			if(parts[1][parts[1].length - 1] === '\r'){
+				parts[1] = parts[1].substring(0, parts[1].length - 1);
+			}
+			
 			// remove outside single quotes
 			if(
 				parts[1][0] === "'"
@@ -21,13 +28,11 @@ export default async (localSecretsPath = './secrets/local.env') => {
 				parts[1] = parts[1].substring(1, parts[1].length - 1);
 			}
 
-			// remove \r
-			if(parts[1][parts[1].length - 1] === '\r'){
-				parts[1] = parts[1].substring(0, parts[1].length - 1);
-			}
+
 			
 			process.env[parts[0]] = parts[1];
 		}
 	}
+
 
 }

@@ -1,8 +1,10 @@
 import { createDecipheriv } from 'crypto';
 
-export default function decrypt(encryptedData, key = process.env.AWESOMENESS_ENCRYPTION_KEY ?? 'YOU SHOULD HAVE REPLACED THIS... Slacker...') {
-    
-    console.log({ key });
+export default function decrypt(encryptedData, key = process.env.AWESOMENESS_ENCRYPTION_KEY) {
+
+    if(!key){
+        throw new Error('Encryption key is not set. Please set the AWESOMENESS_ENCRYPTION_KEY environment variable.');
+    }
 
     const { iv, authTag, cipherText } = encryptedData;
   

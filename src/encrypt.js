@@ -1,9 +1,12 @@
 import { randomBytes, createCipheriv } from 'crypto';
 
-// Encrypt plaintext using AES-256-GCM
-export default function encrypt(plainText, key = process.env.AWESOMENESS_ENCRYPTION_KEY ?? 'YOU SHOULD HAVE REPLACED THIS... Slacker...') {
 
-    console.log({ key });
+// Encrypt plaintext using AES-256-GCM
+export default function encrypt(plainText, key = process.env.AWESOMENESS_ENCRYPTION_KEY) {
+
+    if(!key){
+        throw new Error('Encryption key is not set. Please set the AWESOMENESS_ENCRYPTION_KEY environment variable.');
+    }
 
     // GCM typically uses a 12- or 16-byte IV/nonce
     const iv = randomBytes(12);
