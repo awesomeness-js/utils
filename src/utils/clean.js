@@ -156,8 +156,11 @@ function cleanObject(obj, schema){
         if(supposedToBeType === 'uuid'){ cleanedValue = cleanUUID(value); }
 
         if(supposedToBeType === 'object'){ 
-            console.log('about to clean another object', value, schema.properties[key]);
             cleanedValue = cleanObject(value, schema.properties[key]); 
+        }
+
+        if(supposedToBeType === 'array'){ 
+            cleanedValue = cleanArray(value, schema.properties[key]); 
         }
 
         cleanObj[key] = cleanedValue;

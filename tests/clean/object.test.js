@@ -70,6 +70,58 @@ const schema2 = {
     },
 };
 
+
+const testArraysOfIntegers = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+
+const testStringArrayOfArrays = [
+    ['a', 'b', 'c'],
+    ['d', 'e', 'f'],
+    ['g', 'h', 'i'],
+];
+
+const testArrayOfBooleans = [
+    [true, false, true],
+    [false, true, false],
+    [true, true, false]
+];
+
+const objectOfArrays = {
+    testArraysOfIntegers: [...testArraysOfIntegers],
+    testStringArrayOfArrays: [...testStringArrayOfArrays],
+    testArrayOfBooleans: [...testArrayOfBooleans],
+};
+
+const objectOfArrays_schema = {
+    type: 'object',
+    properties: {
+        testArraysOfIntegers: {
+            type: 'array',
+            items: {
+                type: 'array',
+                items: { type: 'integer' }
+            }
+        },
+        testStringArrayOfArrays: {
+            type: 'array',
+            items: {
+                type: 'array',
+                items: { type: 'string' }
+            }
+        },
+        testArrayOfBooleans: {
+            type: 'array',
+            items: {
+                type: 'array',
+                items: { type: 'boolean' }
+            }
+        }
+    }
+};
+
 test('testObject', () => {
     try {
         const cleanedObject = utils.clean.object(testObject, schema);
@@ -105,4 +157,16 @@ test('testObject2', () => {
 
 test('incorrect should throw', () => {
     expect(()=> utils.clean.object(testObject, schema2)).toThrow();
+});
+
+
+test('object of arrays test', () => {
+    try {
+        const cleanedObject = utils.clean.object(objectOfArrays, objectOfArrays_schema);
+        //console.log('cleanedObject', cleanedObject);
+        expect(cleanedObject).toStrictEqual(objectOfArrays);
+    } catch (error) {
+        console.error('Error cleaning object:', error);
+        throw error; // rethrow to fail the test
+    }
 });
