@@ -1,5 +1,6 @@
 export default function cleanNumber(x, {
     required = false,
+    convertString = true,
     min = false,
     max = false,
     maxDecimal = false,
@@ -11,8 +12,25 @@ export default function cleanNumber(x, {
         if (typeof x !== 'number') {
 
             // convert string to number if possible
-            if (typeof x === 'string' && !isNaN(parseFloat(x))) {
-                x = parseFloat(x);
+            if (convertString && typeof x === 'string') {
+
+                try {
+                    x = parseFloat(x);
+                } catch(e){
+                    throw {
+                        message: 'Input cannot be parsed',
+                        value: x
+                    }
+                }
+                                
+
+                if(isNaN(x)){
+                    throw {
+                        message: 'Input cannot be parsed NaN',
+                        value: x
+                    }
+                }
+
             } else {
                 throw {
                     message: 'Input must be a number',

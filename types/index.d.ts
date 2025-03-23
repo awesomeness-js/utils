@@ -10,7 +10,6 @@ import type _clean_integer from './clean/integer';
 import type _clean_number from './clean/number';
 import type _clean_object from './clean/object';
 import type _clean_string from './clean/string';
-import type _clean_thing from './clean/thing';
 import type _clean_timestamp from './clean/timestamp';
 import type _clean_uuid from './clean/uuid';
 import type _combineFiles from './combineFiles';
@@ -31,6 +30,7 @@ import type _thingType from './thingType';
 import type _toPennies from './toPennies';
 import type _utils_buildExportsTree from './utils/buildExportsTree';
 import type _utils_buildFileDataList from './utils/buildFileDataList';
+import type _utils_clean from './utils/clean';
 import type _utils_extractJSDocComment from './utils/extractJSDocComment';
 import type _utils_generateFile from './utils/generateFile';
 import type _utils_generateFlatExportLines from './utils/generateFlatExportLines';
@@ -111,7 +111,6 @@ declare const _default: {
         number: typeof _clean_number,
         object: typeof _clean_object,
         string: typeof _clean_string,
-        thing: typeof _clean_thing,
         timestamp: typeof _clean_timestamp,
         uuid: typeof _clean_uuid,
     },
@@ -125,6 +124,7 @@ declare const _default: {
     utils: {
         buildExportsTree: typeof _utils_buildExportsTree,
         buildFileDataList: typeof _utils_buildFileDataList,
+        clean: typeof _utils_clean,
         extractJSDocComment: typeof _utils_extractJSDocComment,
         generateFile: typeof _utils_generateFile,
         generateFlatExportLines: typeof _utils_generateFlatExportLines,

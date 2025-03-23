@@ -5,6 +5,8 @@ export default function cleanString(x, {
     allowHtml = false,
     allowScripts = false
 } = {}){
+
+    if(allowScripts && !allowHtml){ allowHtml = true; }
     
     try {
 

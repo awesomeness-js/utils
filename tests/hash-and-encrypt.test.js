@@ -3,7 +3,7 @@ import { expect, test } from 'vitest'
 import utils from '../index.js';
 
 // set AWESOMENESS_ENCRYPTION_KEY
-//await utils.setLocalEnvs('./secrets/dev.env');
+await utils.setLocalEnvs('./secrets/dev.env');
 
 const storedHash = utils.password.hash('mySecret123');
 

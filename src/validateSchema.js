@@ -2,6 +2,13 @@ import each from './each.js';
 
 function validateSchema(schema){
 
+    if(!schema){
+        throw {
+            message: 'Schema is required.',
+            schema
+        };
+    }
+
     // ref todo
     if(schema.ref){ return true; }
 
@@ -9,8 +16,9 @@ function validateSchema(schema){
 
     if(schemaType !== 'object' || schema === null) {
         throw {
-            message: 'Input must be an object',
-            schema
+            message: 'Schema Invalid - Input must be an object',
+            schema,
+            schemaType
         };
     }
 

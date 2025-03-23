@@ -28,6 +28,8 @@ export default (thing) => {
     let is_iso_dateTime = thing && typeof thing === 'string' && thing.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?$/);
     if(is_iso_dateTime) { type = 'timestamp'; return type; }
 
+    return type;
+
     
 }
 

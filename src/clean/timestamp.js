@@ -22,10 +22,6 @@ export default function cleanTimestamp( isoDateTimeString , {
             };
         }
     
-        if(maxDaysInFuture === false && maxDaysInFPast === false) {
-            return isoDateTimeString;
-        }
-    
         const now = new Date();
         
         if(maxDaysInFuture !== false && (date - now) > maxDaysInFuture * 24 * 60 * 60 * 1000) {
@@ -42,7 +38,7 @@ export default function cleanTimestamp( isoDateTimeString , {
             };
         }
     
-        return isoDateTimeString;
+        return date.toISOString();
 
     } catch (e) {
 

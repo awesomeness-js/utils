@@ -6,7 +6,8 @@
     "outDir": "types",          // Output directory for type files
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["vitest/globals"]
   },
   "include": ["src/**/*"],
   "exclude": [
