@@ -92,7 +92,7 @@ const relatedKVs = {
 				fn: {
 					type: 'string',
 					description: 'the name of the fn such a "body" (app.print.blogPost.body)',
-					enum: [
+					validValues: [
 						"body",
 						"h1",
 						"h2",

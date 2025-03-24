@@ -3,7 +3,8 @@ export default function cleanString(x, {
     minLength = false,
     maxLength = false,
     allowHtml = false,
-    allowScripts = false
+    allowScripts = false,
+    validValues = false
 } = {}){
 
     if(allowScripts && !allowHtml){ allowHtml = true; }
@@ -48,6 +49,18 @@ export default function cleanString(x, {
             };
         }
 
+        if( 
+            validValues
+            && Array.isArray(validValues) 
+            && !validValues.includes(x) 
+        ) {
+            throw {
+                message: `Value invalid`,
+                validValues,
+                value: x
+            };
+        }
+
         return x;
 
     } catch (e) {
@@ -57,4 +70,3 @@ export default function cleanString(x, {
     }
 
 }
-
