@@ -2,23 +2,34 @@
 import { expect, test } from 'vitest'
 import utils from '../index.js';
 
-let combineTest = utils.combineFiles('./src', 'js');
+let combineTest = utils.combineFiles('./test', 'js');
 
-let combineTestBrowser = utils.combineFiles('./src', 'js', { 
-    moduleToBrowser: true 
+let combineTest2 = utils.combineFiles('./test', 'js', { 
+	processContent: ({ content, path  }) => { 
+
+        const fnName = path.split('/')
+        .filter(x => x !== '') // remove empty strings
+        .join('.') // join with dots
+        .replaceAll('..', '.') // remove double dots
+        .replaceAll('.js', '') // remove .js
+        .replace(/^\./, '');
+
+        console.log({content, path});
+        content = content.replaceAll('export default function', `${fnName} = function`);
+        content = content.replaceAll('export default async function', `${fnName} = async function`);
+        content = content.replaceAll('export default async', `${fnName} = async`);
+        content = content.replaceAll('export default', `${fnName} =`);
+        console.log(content);
+        console.log('');
+        console.log('');
+        console.log('');
+        return content; 
+    },
 });
 
 test('combineFiles - combine all files in src/js', () => {
     expect(combineTest).toBeDefined();
-    expect(combineTestBrowser).toBeDefined();
-    expect(combineTest.length).toBeGreaterThan(combineTestBrowser.length);
-})
-
-
-test('has import', () => {
-    expect(combineTest.includes('import')).toBe(true);
-})
-
-test('should not have import', () => {
-    expect(combineTestBrowser.includes('import')).toBe(false);
+    expect(combineTest2).toBeDefined();
+    expect(combineTest).not.toEqual(combineTest2);
+    console.log({combineTest2});
 })

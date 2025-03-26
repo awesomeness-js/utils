@@ -3,7 +3,7 @@ import { readdirSync, statSync, readFileSync } from 'fs';
 
 function combineFiles(dir, fileType, {
 	minify = false,
-	moduleToBrowser = false,
+	processContent = ({ content, path  }) => { return content; },
 } = {}) {
 
 		var returnString = "";
@@ -22,14 +22,14 @@ function combineFiles(dir, fileType, {
 
 				returnString += combineFiles(`${dir}/${stuff}`, fileType, {
 					minify,
-					moduleToBrowser,
+					processContent,
 				});  
 
 			} else {
 
 				// is file
 
-				// get file and extenstion from stuff
+				// get file and extension from stuff
 				let file = stuff.split('.');
 				let ext = file[file.length - 1];
 
@@ -38,24 +38,12 @@ function combineFiles(dir, fileType, {
 					
 					let thisData = readFileSync(`${dir}/${stuff}`, 'utf8');
 
-					if(moduleToBrowser){
+					if(typeof processContent === 'function'){
 
-						// can this file be converted to browser?
-						let browserFriendly = thisData.startsWith('export default ');
-
-						if(browserFriendly){
-							browserFriendly = thisData.includes('import') === false; // no imports allowed
-						}
-
-
-						if(browserFriendly){
-
-							// strip properly formatted file
-							thisData = thisData.replace('export default ', '');	
-
-						} else {
-							thisData = "";
-						}
+						thisData = processContent({
+							path: `${dir}/${stuff}`,
+							content: thisData,
+						});
 
 					}
 
