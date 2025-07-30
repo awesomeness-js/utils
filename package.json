@@ -1,26 +1,26 @@
 {
-    "name": "@awesomeness-js/utils",
-    "version": "1.0.24",
-    "description": "Awesomeness - Utils",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/awesomeness-js/utils.git"
-    },
-    "scripts": {
-        "prebuild": "node ./build/build.js",
-        "build": "tsc && npm run postBuild",
-        "postBuild": "node ./build/postBuild.js",
-        "test": "vitest"
-    },
-    "type": "module",
-    "types": "./types/index.d.ts",
-    "main": "index.js",
-    "author": "Scott Forte",
-    "license": "MIT",
-    "publishConfig": {
-        "access": "public"
-    },
-    "devDependencies": {
-        "vitest": "^3.0.9"
-    }
+	"name": "@awesomeness-js/utils",
+	"version": "1.0.25",
+	"description": "Awesomeness - Utils",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/awesomeness-js/utils.git"
+	},
+	"scripts": {
+		"prebuild": "node ./build/build.js",
+		"build": "tsc && npm run postBuild",
+		"postBuild": "node ./build/postBuild.js",
+		"test": "vitest"
+	},
+	"type": "module",
+	"types": "./types/index.d.ts",
+	"main": "index.js",
+	"author": "Scott Forte",
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	},
+	"devDependencies": {
+		"vitest": "^3.0.9"
+	}
 }
