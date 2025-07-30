@@ -1,22 +1,32 @@
 export default function cleanBoolean(x, {
-    required = false
+	required = false
 } = {}){
 
-    try {
-    
-        if(x !== true && x !== false){
-            throw {
-                message: `Invalid boolean value "${x}"`,
-            }
-        }
-        
-        return x;
+	try {
+	
+		if(x !== true && x !== false){
 
-    } catch (e) {
+			throw {
+				message: `Invalid boolean value "${x}"`,
+			};
+		
+		}
+		
+		return x;
 
-        if(required) { throw e; } else { return null; }
-        
-    }
-    
+	} catch (e) {
+
+		if(required) {
+
+			throw e; 
+
+		} else {
+
+			return null; 
+
+		}
+		
+	}
+	
 }
 

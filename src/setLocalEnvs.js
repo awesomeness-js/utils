@@ -1,15 +1,22 @@
 import { readFile } from 'fs/promises';
+
 export default async (localSecretsPath = './secrets/local.env') => {
 
-		// get the file
+	// get the file
 	let localSecrets = await readFile(localSecretsPath, 'utf8');
 
 	// parse the file
 	let lines = localSecrets.split('\n');
+
+
 	for(let line of lines){
 
 		// skip #
-		if(line[0] === '#'){ continue; }
+		if(line[0] === '#'){
+
+			continue; 
+
+		}
 
 		let parts = line.split('=');
 
@@ -17,7 +24,9 @@ export default async (localSecretsPath = './secrets/local.env') => {
 
 			// remove \r
 			if(parts[1][parts[1].length - 1] === '\r'){
+
 				parts[1] = parts[1].substring(0, parts[1].length - 1);
+			
 			}
 			
 			// remove outside single quotes
@@ -25,14 +34,18 @@ export default async (localSecretsPath = './secrets/local.env') => {
 				parts[1][0] === "'"
 				&& parts[1][parts[1].length - 1] === "'"
 			){
+
 				parts[1] = parts[1].substring(1, parts[1].length - 1);
+			
 			}
 
 
 			
 			process.env[parts[0]] = parts[1];
+		
 		}
+	
 	}
 
 
-}
+};

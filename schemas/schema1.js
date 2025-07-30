@@ -5,7 +5,11 @@ const properties = {
 	exampleId: {
 		type: 'uuid',
 		description: 'the id of the vertex',
-		default: () => { return uuid(); },
+		default: () => {
+
+			return uuid(); 
+
+		},
 		example: '00000000-0000-0000-0000-000000000000',
 		immutable: true,
 		required: true

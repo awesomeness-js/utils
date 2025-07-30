@@ -2,83 +2,101 @@ import each from './each.js';
 
 function validateSchema(schema){
 
-    if(!schema){
-        throw {
-            message: 'Schema is required.',
-            schema
-        };
-    }
+	if(!schema){
 
-    // ref todo
-    if(schema.ref){ return true; }
+		throw {
+			message: 'Schema is required.',
+			schema
+		};
+	
+	}
 
-    let schemaType = typeof schema;
+	// ref todo
+	if(schema.ref){
 
-    if(schemaType !== 'object' || schema === null) {
-        throw {
-            message: 'Schema Invalid - Input must be an object',
-            schema,
-            schemaType
-        };
-    }
+		return true; 
 
-    // object properties dont have type
-    if(!schema.type && schema.properties){ schema.type = 'object'; }
+	}
 
-    const validTypes = [
-        'array',
-        'boolean',
-        'integer',
-        'number',
-        'object',
-        'string',
-        'timestamp',
-        'uuid'
-    ];
+	let schemaType = typeof schema;
 
-    if(!schema.type || !validTypes.includes(schema.type)) {
-        throw {
-            message: `Schema must have a valid type.`,
-            validTypes,
-            schema
-        };
-    }
+	if(schemaType !== 'object' || schema === null) {
+
+		throw {
+			message: 'Schema Invalid - Input must be an object',
+			schema,
+			schemaType
+		};
+	
+	}
+
+	// object properties dont have type
+	if(!schema.type && schema.properties){
+
+		schema.type = 'object'; 
+
+	}
+
+	const validTypes = [
+		'array',
+		'boolean',
+		'integer',
+		'number',
+		'object',
+		'string',
+		'timestamp',
+		'uuid'
+	];
+
+	if(!schema.type || !validTypes.includes(schema.type)) {
+
+		throw {
+			message: `Schema must have a valid type.`,
+			validTypes,
+			schema
+		};
+	
+	}
 
 
-    if(schema.type === 'object') {
+	if(schema.type === 'object') {
 
-        if(schema.properties){
-            
-            // run through each property
-            each(schema.properties, (v,k) => {
-                validateSchema(v);
-            });
-            
-        } else {
+		if(schema.properties){
+			
+			// run through each property
+			each(schema.properties, (v,k) => {
 
-            throw {
-                message: 'Object invalid - needs "properties"',
-                schema
-            }
+				validateSchema(v);
+			
+			});
+			
+		} else {
 
-        }
+			throw {
+				message: 'Object invalid - needs "properties"',
+				schema
+			};
 
-    }
+		}
 
-    if(schema.type === 'array') {
+	}
 
-        if(!schema.items){
-            throw {
-                message: 'Array schema must have items defined.',
-                schema
-            };
-        }
+	if(schema.type === 'array') {
 
-        validateSchema(schema.items);
+		if(!schema.items){
 
-    }
+			throw {
+				message: 'Array schema must have items defined.',
+				schema
+			};
+		
+		}
 
-    return true;
+		validateSchema(schema.items);
+
+	}
+
+	return true;
 
 }
 

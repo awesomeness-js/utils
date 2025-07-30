@@ -12,6 +12,7 @@ import type _clean_object from './clean/object';
 import type _clean_string from './clean/string';
 import type _clean_timestamp from './clean/timestamp';
 import type _clean_uuid from './clean/uuid';
+import type _collectImports from './collectImports';
 import type _combineFiles from './combineFiles';
 import type _convertBytes from './convertBytes';
 import type _decrypt from './decrypt';
@@ -43,6 +44,7 @@ import type _uuid from './uuid';
 import type _validateSchema from './validateSchema';
 
 export declare const build: typeof _build;
+export declare const collectImports: typeof _collectImports;
 export declare const combineFiles: typeof _combineFiles;
 export declare const convertBytes: typeof _convertBytes;
 export declare const decrypt: typeof _decrypt;
@@ -73,6 +75,7 @@ declare const _default: {
      * @returns {Promise<boolean>} A promise that resolves to true when the build is complete.
      */
     build: typeof _build;
+    collectImports: typeof _collectImports;
     combineFiles: typeof _combineFiles;
     /**
      * Converts a given number of bytes into a more readable string format with appropriate units.

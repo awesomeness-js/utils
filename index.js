@@ -12,6 +12,7 @@ import _clean_object from './src/clean/object.js';
 import _clean_string from './src/clean/string.js';
 import _clean_timestamp from './src/clean/timestamp.js';
 import _clean_uuid from './src/clean/uuid.js';
+import _collectImports from './src/collectImports.js';
 import _combineFiles from './src/combineFiles.js';
 import _convertBytes from './src/convertBytes.js';
 import _decrypt from './src/decrypt.js';
@@ -43,6 +44,7 @@ import _uuid from './src/uuid.js';
 import _validateSchema from './src/validateSchema.js';
 
 export { _build as build };
+export { _collectImports as collectImports };
 export { _combineFiles as combineFiles };
 export { _convertBytes as convertBytes };
 export { _decrypt as decrypt };
@@ -60,78 +62,79 @@ export { _uuid as uuid };
 export { _validateSchema as validateSchema };
 
 export default {
-    /**
-     * Builds a file from the specified source directory and writes it to the destination file.
-     *
-     * @param {Object} options - The options for the build process.
-     * @param {string} [options.src='./src'] - The source directory to build from.
-     * @param {string} [options.dest='./index.js'] - The destination file to write the built content to.
-     * @param {boolean} [options.exportRoots=true] - Whether to export root files.
-     * @param {string[]} [options.ignore=[]] - An array of file patterns to ignore.
-     * @param {boolean} [options.includeComments=true] - Whether to include comments in the generated file.
-     * @param {boolean} [options.dts=false] - Whether to generate TypeScript declaration files.
-     * @returns {Promise<boolean>} A promise that resolves to true when the build is complete.
-     */
-    build: _build,
-    combineFiles: _combineFiles,
-    /**
-     * Converts a given number of bytes into a more readable string format with appropriate units.
-     *
-     * @param {number} bytes - The number of bytes to convert.
-     * @param {number} [precision=2] - The number of decimal places to include in the result.
-     * @returns {string} The converted bytes in a string format with appropriate units.
-     */
-    convertBytes: _convertBytes,
-    decrypt: _decrypt,
-    /**
-     * Iterates over elements of an array or properties of an object, invoking a callback for each element/property.
-     * The iteration stops if the callback returns `false`.
-     *
-     * @example each({ a: 1, b: 2 }, (value, key) => { console.log(value, key); });
-     * @param {Object|Array} objectOrArray - The object or array to iterate over.
-     * @param {Function} callback - The function to invoke per iteration. It is invoked with two arguments: (value, key/index).
-     * @returns {void}
-     */
-    each: _each,
-    eachAsync: _eachAsync,
-    encrypt: _encrypt,
-    getAllFiles: _getAllFiles,
-    ignoreMe: _ignoreMe,
-    isUUID: _isUUID,
-    md5: _md5,
-    setLocalEnvs: _setLocalEnvs,
-    thingType: _thingType,
-    toPennies: _toPennies,
-    uuid: _uuid,
-    validateSchema: _validateSchema,
-    clean: {
-        array: _clean_array,
-        boolean: _clean_boolean,
-        integer: _clean_integer,
-        number: _clean_number,
-        object: _clean_object,
-        string: _clean_string,
-        timestamp: _clean_timestamp,
-        uuid: _clean_uuid,
-    },
-    ignoreFolder: {
-        ignoreMe: _ignoreFolder_ignoreMe,
-    },
-    password: {
-        check: _password_check,
-        hash: _password_hash,
-    },
-    utils: {
-        buildExportsTree: _utils_buildExportsTree,
-        buildFileDataList: _utils_buildFileDataList,
-        clean: _utils_clean,
-        extractJSDocComment: _utils_extractJSDocComment,
-        generateFile: _utils_generateFile,
-        generateFlatExportLines: _utils_generateFlatExportLines,
-        generateImportStatements: _utils_generateImportStatements,
-        generateNamedExports: _utils_generateNamedExports,
-        generateNamespaceCode: _utils_generateNamespaceCode,
-        generateNamespaceExportLines: _utils_generateNamespaceExportLines,
-        shouldIgnore: _utils_shouldIgnore,
-    },
+	/**
+	 * Builds a file from the specified source directory and writes it to the destination file.
+	 *
+	 * @param {Object} options - The options for the build process.
+	 * @param {string} [options.src='./src'] - The source directory to build from.
+	 * @param {string} [options.dest='./index.js'] - The destination file to write the built content to.
+	 * @param {boolean} [options.exportRoots=true] - Whether to export root files.
+	 * @param {string[]} [options.ignore=[]] - An array of file patterns to ignore.
+	 * @param {boolean} [options.includeComments=true] - Whether to include comments in the generated file.
+	 * @param {boolean} [options.dts=false] - Whether to generate TypeScript declaration files.
+	 * @returns {Promise<boolean>} A promise that resolves to true when the build is complete.
+	 */
+	build: _build,
+	collectImports: _collectImports,
+	combineFiles: _combineFiles,
+	/**
+	 * Converts a given number of bytes into a more readable string format with appropriate units.
+	 *
+	 * @param {number} bytes - The number of bytes to convert.
+	 * @param {number} [precision=2] - The number of decimal places to include in the result.
+	 * @returns {string} The converted bytes in a string format with appropriate units.
+	 */
+	convertBytes: _convertBytes,
+	decrypt: _decrypt,
+	/**
+	 * Iterates over elements of an array or properties of an object, invoking a callback for each element/property.
+	 * The iteration stops if the callback returns `false`.
+	 *
+	 * @example each({ a: 1, b: 2 }, (value, key) => { console.log(value, key); });
+	 * @param {Object|Array} objectOrArray - The object or array to iterate over.
+	 * @param {Function} callback - The function to invoke per iteration. It is invoked with two arguments: (value, key/index).
+	 * @returns {void}
+	 */
+	each: _each,
+	eachAsync: _eachAsync,
+	encrypt: _encrypt,
+	getAllFiles: _getAllFiles,
+	ignoreMe: _ignoreMe,
+	isUUID: _isUUID,
+	md5: _md5,
+	setLocalEnvs: _setLocalEnvs,
+	thingType: _thingType,
+	toPennies: _toPennies,
+	uuid: _uuid,
+	validateSchema: _validateSchema,
+	clean: {
+		array: _clean_array,
+		boolean: _clean_boolean,
+		integer: _clean_integer,
+		number: _clean_number,
+		object: _clean_object,
+		string: _clean_string,
+		timestamp: _clean_timestamp,
+		uuid: _clean_uuid,
+	},
+	ignoreFolder: {
+		ignoreMe: _ignoreFolder_ignoreMe,
+	},
+	password: {
+		check: _password_check,
+		hash: _password_hash,
+	},
+	utils: {
+		buildExportsTree: _utils_buildExportsTree,
+		buildFileDataList: _utils_buildFileDataList,
+		clean: _utils_clean,
+		extractJSDocComment: _utils_extractJSDocComment,
+		generateFile: _utils_generateFile,
+		generateFlatExportLines: _utils_generateFlatExportLines,
+		generateImportStatements: _utils_generateImportStatements,
+		generateNamedExports: _utils_generateNamedExports,
+		generateNamespaceCode: _utils_generateNamespaceCode,
+		generateNamespaceExportLines: _utils_generateNamespaceExportLines,
+		shouldIgnore: _utils_shouldIgnore,
+	},
 };

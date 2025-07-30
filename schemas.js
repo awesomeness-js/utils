@@ -10,6 +10,6 @@ export { _schema1 as schema1 };
 export { _schema2 as schema2 };
 
 export default {
-    schema1: _schema1,
-    schema2: _schema2,
+	schema1: _schema1,
+	schema2: _schema2,
 };

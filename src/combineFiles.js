@@ -1,66 +1,75 @@
 // main-module/index.js
-import { readdirSync, statSync, readFileSync } from 'fs';
+import {
+	readdirSync, statSync, readFileSync 
+} from 'fs';
 
 function combineFiles(dir, fileType, {
 	minify = false,
-	processContent = ({ content, path  }) => { return content; },
+	processContent = ({
+		content, path  
+	}) => {
+
+		return content; 
+
+	},
 } = {}) {
 
-		var returnString = "";
+	var returnString = "";
 
-		let stuff = readdirSync(dir);
+	let stuff = readdirSync(dir);
 
-		// sort it
-		stuff = stuff.sort();
+	// sort it
+	stuff = stuff.sort();
 		
 
-		stuff.forEach(stuff => {
+	stuff.forEach((stuff) => {
 
-			const isDir = statSync(`${dir}/${stuff}`).isDirectory();
+		const isDir = statSync(`${dir}/${stuff}`).isDirectory();
 			
-			if(isDir){
+		if(isDir){
 
-				returnString += combineFiles(`${dir}/${stuff}`, fileType, {
-					minify,
-					processContent,
-				});  
+			returnString += combineFiles(`${dir}/${stuff}`, fileType, {
+				minify,
+				processContent,
+			});  
 
-			} else {
+		} else {
 
-				// is file
+			// is file
 
-				// get file and extension from stuff
-				let file = stuff.split('.');
-				let ext = file[file.length - 1];
+			// get file and extension from stuff
+			let file = stuff.split('.');
+			let ext = file[file.length - 1];
 
 
-				if(ext === fileType){
+			if(ext === fileType){
 					
-					let thisData = readFileSync(`${dir}/${stuff}`, 'utf8');
+				let thisData = readFileSync(`${dir}/${stuff}`, 'utf8');
 
-					if(typeof processContent === 'function'){
+				if(typeof processContent === 'function'){
 
-						thisData = processContent({
-							path: `${dir}/${stuff}`,
-							content: thisData,
-						});
-
-					}
-
-					if(minify){
-						// todo
-					}
-
-					returnString += thisData + " \n ";
+					thisData = processContent({
+						path: `${dir}/${stuff}`,
+						content: thisData,
+					});
 
 				}
 
+				if(minify){
+					// todo
+				}
+
+				returnString += thisData + " \n ";
+
 			}
 
-		});
+		}
 
-		return returnString;
+	});
 
-	};
+	return returnString;
 
-	export default combineFiles;
+}
+
+
+export default combineFiles;

@@ -1,31 +1,44 @@
 import isUUID from "../isUUID.js";
+
 export default function cleanUUID(uuid,{
-    required = false,
+	required = false,
 } = {}){
-    
-    try {
-            
-        if(typeof uuid !== 'string'){
-            throw {
-                message: 'Input must be a string',
-                uuid
-            };
-        }
+	
+	try {
+			
+		if(typeof uuid !== 'string'){
 
-        if(!isUUID(uuid)){
-            throw {
-                message: 'Invalid UUID format',
-                uuid
-            };
-        }
+			throw {
+				message: 'Input must be a string',
+				uuid
+			};
+		
+		}
 
-        return uuid;
+		if(!isUUID(uuid)){
 
-    } catch (e) {
+			throw {
+				message: 'Invalid UUID format',
+				uuid
+			};
+		
+		}
 
-        if(required) { throw e; } else { return null; }
+		return uuid;
 
-    }
+	} catch (e) {
+
+		if(required) {
+
+			throw e; 
+
+		} else {
+
+			return null; 
+
+		}
+
+	}
 
 
 

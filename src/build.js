@@ -14,15 +14,19 @@ import { writeFileSync } from 'fs';
 import generateFile from './utils/generateFile.js';
 
 async function build({
-    src = './src',
-    dest = './index.js',
-    exportRoots = true,
-    ignore = [],
-    includeComments = true,
-    dts = false
+	src = './src',
+	dest = './index.js',
+	exportRoots = true,
+	ignore = [],
+	includeComments = true,
+	dts = false,
+	useTabs = true
 } = {}) {
-    writeFileSync(dest, generateFile(src, exportRoots, ignore, includeComments, dts));
-    return true;
+
+	writeFileSync(dest, generateFile(src, exportRoots, ignore, includeComments, dts, useTabs));
+	
+	return true;
+
 }
 
 export default build;
