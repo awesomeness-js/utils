@@ -4,6 +4,7 @@
  * Do not edit manually.
  */
 import _build from './src/build.js';
+import _build_old from './src/build_old.js';
 import _clean_array from './src/clean/array.js';
 import _clean_boolean from './src/clean/boolean.js';
 import _clean_integer from './src/clean/integer.js';
@@ -40,10 +41,12 @@ import _utils_generateNamedExports from './src/utils/generateNamedExports.js';
 import _utils_generateNamespaceCode from './src/utils/generateNamespaceCode.js';
 import _utils_generateNamespaceExportLines from './src/utils/generateNamespaceExportLines.js';
 import _utils_shouldIgnore from './src/utils/shouldIgnore.js';
+import _utils_writeHotWrapper from './src/utils/writeHotWrapper.js';
 import _uuid from './src/uuid.js';
 import _validateSchema from './src/validateSchema.js';
 
 export { _build as build };
+export { _build_old as build_old };
 export { _collectImports as collectImports };
 export { _combineFiles as combineFiles };
 export { _convertBytes as convertBytes };
@@ -62,6 +65,7 @@ export { _uuid as uuid };
 export { _validateSchema as validateSchema };
 
 export default {
+	build: _build,
 	/**
 	 * Builds a file from the specified source directory and writes it to the destination file.
 	 *
@@ -74,7 +78,7 @@ export default {
 	 * @param {boolean} [options.dts=false] - Whether to generate TypeScript declaration files.
 	 * @returns {Promise<boolean>} A promise that resolves to true when the build is complete.
 	 */
-	build: _build,
+	build_old: _build_old,
 	collectImports: _collectImports,
 	combineFiles: _combineFiles,
 	/**
@@ -108,33 +112,11 @@ export default {
 	uuid: _uuid,
 	validateSchema: _validateSchema,
 	clean: {
-		array: _clean_array,
-		boolean: _clean_boolean,
-		integer: _clean_integer,
-		number: _clean_number,
-		object: _clean_object,
-		string: _clean_string,
-		timestamp: _clean_timestamp,
-		uuid: _clean_uuid,
-	},
+},
 	ignoreFolder: {
-		ignoreMe: _ignoreFolder_ignoreMe,
-	},
+},
 	password: {
-		check: _password_check,
-		hash: _password_hash,
-	},
+},
 	utils: {
-		buildExportsTree: _utils_buildExportsTree,
-		buildFileDataList: _utils_buildFileDataList,
-		clean: _utils_clean,
-		extractJSDocComment: _utils_extractJSDocComment,
-		generateFile: _utils_generateFile,
-		generateFlatExportLines: _utils_generateFlatExportLines,
-		generateImportStatements: _utils_generateImportStatements,
-		generateNamedExports: _utils_generateNamedExports,
-		generateNamespaceCode: _utils_generateNamespaceCode,
-		generateNamespaceExportLines: _utils_generateNamespaceExportLines,
-		shouldIgnore: _utils_shouldIgnore,
-	},
+},
 };

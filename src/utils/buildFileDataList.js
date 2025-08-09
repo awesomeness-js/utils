@@ -2,7 +2,11 @@ import getAllFiles from '../getAllFiles.js';
 import extractJSDocComment from './extractJSDocComment.js';
 import { join } from 'path';
 
-export default function buildFileDataList(src, ignore, includeComments) {
+export default function buildFileDataList({
+	src, 
+	ignore, 
+	includeComments
+}) {
 
 	const allFiles = getAllFiles(src, { 
 		ignore,

@@ -1,4 +1,8 @@
-export default function generateImportStatements(fileDataList, dts, src) {
+export default function generateImportStatements({
+	fileDataList, 
+	dts, 
+	src
+}) {
 
 	let statements = '';
 

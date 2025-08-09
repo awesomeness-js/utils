@@ -1,4 +1,8 @@
-export default function buildFileDataList(src: any, ignore: any, includeComments: any): {
+export default function buildFileDataList({ src, ignore, includeComments }: {
+    src: any;
+    ignore: any;
+    includeComments: any;
+}): {
     normalizedFile: any;
     parts: any;
     functionName: any;

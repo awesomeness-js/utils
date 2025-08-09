@@ -1,4 +1,10 @@
-export default function generateNamespaceCode(nsObj, indentLevel, includeComments, dts, useTabs = true) {
+export default function generateNamespaceCode({
+	nsObj, 
+	indentLevel, 
+	includeComments, 
+	dts, 
+	useTabs = true
+}) {
 
 	let indentStyle = useTabs ? '\t' : '    ';
 
@@ -31,7 +37,13 @@ export default function generateNamespaceCode(nsObj, indentLevel, includeComment
 		
 		} else {
 
-			const nestedCode = generateNamespaceCode(value, indentLevel + 1, includeComments, dts);
+			const nestedCode = generateNamespaceCode({
+				nsObj: value,
+				indentLevel: indentLevel + 1,
+				includeComments,
+				dts,
+				useTabs
+			});
 
 			lines.push(`${indent}${indentStyle}${key}: ${nestedCode},`);
 		

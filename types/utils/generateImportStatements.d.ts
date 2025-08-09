@@ -1,1 +1,5 @@
-export default function generateImportStatements(fileDataList: any, dts: any, src: any): string;
+export default function generateImportStatements({ fileDataList, dts, src }: {
+    fileDataList: any;
+    dts: any;
+    src: any;
+}): string;

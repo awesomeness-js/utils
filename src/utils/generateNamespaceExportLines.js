@@ -1,6 +1,11 @@
 import generateNamespaceCode from './generateNamespaceCode.js';
 
-export default function generateNamespaceExportLines(nestedExports, includeComments, dts, useTabs = true) {
+export default function generateNamespaceExportLines({
+	nestedExports, 
+	includeComments, 
+	dts, 
+	useTabs = true
+}) {
 
 	const indentStyle = useTabs ? '\t' : '    ';
 

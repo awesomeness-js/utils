@@ -1,33 +1,57 @@
-export default function generateFlatExportLines(flatExports, exportRoots, includeComments, dts, useTabs = true) {
+export default function generateFlatExportLines({
+	flatExports, 
+	exportRoots, 
+	includeComments, 
+	dts, 
+	useTabs = true
+}) {
 
 	let indentStyle = useTabs ? '\t' : '    ';
 
 	let lines = '';
 
 
-	if (exportRoots) {
+ 
+	function processExports(exportsArr, level = 1) {
 
-		flatExports.forEach(({
-			functionName, importVarName, jsDocComment 
-		}) => {
+		const currentIndent = indentStyle.repeat(level);
 
-			if (includeComments && jsDocComment) {
+		exportsArr.forEach((item) => {
 
-				const indentedComment = jsDocComment
-					.split('\n')
-					.map((line) => indentStyle + line)
-					.join('\n');
+			if (item.functionName && item.importVarName) {
 
-				lines += indentedComment + '\n';
-			
+				if (includeComments && item.jsDocComment) {
+
+					const indentedComment = item.jsDocComment
+						.split('\n')
+						.map((line) => currentIndent + line)
+						.join('\n');
+
+					lines += indentedComment + '\n';
+				
+				}
+
+				lines += dts
+					? `${currentIndent}${item.functionName}: typeof ${item.importVarName};\n`
+					: `${currentIndent}${item.functionName}: ${item.importVarName},\n`;
+
+			} else if (item.functionName && item.exports) {
+
+				// Nested object
+				lines += `${currentIndent}${item.functionName}: {\n`;
+				processExports(item.exports, level + 1);
+				lines += `${currentIndent}},\n`;
+
 			}
 
-			lines += dts
-				? `${indentStyle}${functionName}: typeof ${importVarName};\n`
-				: `${indentStyle}${functionName}: ${importVarName},\n`;
-		
 		});
-	
+
+	}
+
+	if (exportRoots) {
+
+		processExports(flatExports, 1);
+
 	}
 
 	return lines;
