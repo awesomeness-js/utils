@@ -40,6 +40,7 @@ import _utils_generateNamedExports from './src/utils/generateNamedExports.js';
 import _utils_generateNamespaceCode from './src/utils/generateNamespaceCode.js';
 import _utils_generateNamespaceExportLines from './src/utils/generateNamespaceExportLines.js';
 import _utils_shouldIgnore from './src/utils/shouldIgnore.js';
+import _utils_writeHotWrapper from './src/utils/writeHotWrapper.js';
 import _uuid from './src/uuid.js';
 import _validateSchema from './src/validateSchema.js';
 
@@ -136,5 +137,6 @@ export default {
 		generateNamespaceCode: _utils_generateNamespaceCode,
 		generateNamespaceExportLines: _utils_generateNamespaceExportLines,
 		shouldIgnore: _utils_shouldIgnore,
+		writeHotWrapper: _utils_writeHotWrapper,
 	},
 };

@@ -1,44 +1,43 @@
 # Nothing Special
 
-Just some <u>zero dependency</u> utils ...
-
+Just some <u>cleanly generated API exports</u> for your Node.js utils...
 
 ---
 
 # 🚀 Auto-Generate API Exports for Your Node.js Project  
 
-
 ## 📌 Why "build" Exists  
 
-When working on a Node.js project, you often need to import multiple functions from a directory and structure them in a clean, accessible way. Webpack is overkill for this—it’s designed for browser bundling, not for generating structured API exports in a Node.js environment.  
+When working on a Node.js project, you often need to import multiple functions from a directory and structure them in a clean, accessible way. Webpack is overkill for this—it’s designed for browser bundling, not for generating structured API exports in a Node.js environment. 
 
-This script **automates** that process. It dynamically scans your source directory (`./src`), imports functions, and generates an `index.js` file that:  
+This script **automates** the process of maintaining your `index.js` file. It scans your source directory (`./src`), imports functions, and generates an output that:  
 
-✅ **Consolidates all exports** into a structured API object.  
+✅ **Consolidates all exports** into a structured API object  
 ✅ **Preserves function names and namespaces** based on folder structure.  
 ✅ **Extracts JSDoc comments** for better documentation.  
-✅ **Works in plain Node.js**—no need for Webpack or extra dependencies.  
+✅ **Works in plain Node.js**—no need for Webpack or extra dependencies.   
 
 ---
 
-## 🚀 Why Use "build" Instead of Webpack?  
+## 💡 Why Use This Over Webpack or Manual Indexing?  
 
-**Webpack is great for frontend bundling, but it’s not ideal for this use case.** Here’s why this script is a better choice:  
+Webpack is a great bundler, but it’s not suited for building a structured export layer for backend code. This script offers a focused, ergonomic solution:  
 
-✔ **Zero dependencies**—Runs in plain Node.js, no Webpack or config files required.  
-✔ **Automatic function export generation**—No need to manually update an `index.js`.  
+✔ **Automatic export generation** — no more maintaining `index.js` by hand  
 ✔ **JSDoc extraction**—Includes comments directly in the generated file.  
 ✔ **Simple and predictable**—You control how exports are structured.  
 ✔ **Namespace support**—Uses folder structure to organize functions logically.  
+✔ **Minimal setup** — one line to generate your exports  
+✔ **Dev-friendly hot rebuild** — optional file watching with HMR-style rebuilds  
 
-With this script, you can stop wasting time managing exports and focus on writing code.  
+> Uses `chokidar` under the hood for reliable cross-platform file watching.
 
 ---
 
-## ⚡ How It Works  
+## ⚙️ How It Works  
 
-1. **Scans** the `./src` directory for `.js` files.  
-2. **Generates** import statements dynamically.  
+1. **Scans** the `./src` directory for `.js` files  
+2. **Generates** import statements  
 3. **Creates** an API object that mirrors your folder structure.  
 4. **Extracts JSDoc comments** from each file and attaches them to the exports.  
 5. **Outputs** a clean, structured `index.js` file, ready to use.  
@@ -47,103 +46,105 @@ With this script, you can stop wasting time managing exports and focus on writin
 
 ## 🔧 Usage  
 
-Simply run:  
+To run it:
 
-By default, this will:  
-- Scan `./src` for JavaScript files  
-- Generate an `index.js` file  
-- Structure exports based on your folder hierarchy  
+```js
+import build from '@awesomeness-js/utils/build.js';
 
-```javascript
-
-import { build } from '@awesomeness-js/utils';
-
-build();
-
+await build();
 ```
 
-If you need custom paths, modify the `src` and `dest` options in the script:  
+This will:
+- Scan the `./src` directory
+- Create or overwrite `./index.js`
+- Structure exports based on your file and folder layout
 
-```javascript
+Customize it:
 
-import { build } from '@awesomeness-js/utils';
-
-build({
-    src: './my-functions',
-    dest: './api.js'
+```js
+await build({
+  src: './my-functions',
+  dest: './api.js',
+  includeComments: true,
+  useTabs: true,
+  hotModuleReload: true // Enable hot reload for dev  
 });
 ```
 
 ---
 
-## 📜 Example Output  
+## 📦 Example Output  
 
-If your folder structure looks like this:  
+Given this folder structure:
 
 ```
 src/
-│── utils/
-│   ├── formatDate.js
-│   ├── generateId.js
-│── services/
-│   ├── fetchData.js
-│── calculate.js
-```
+├── roxbury/
+│   ├── didYouGrabMyAss.js
+│   ├── areYouGuysBrothers.js
+├── bros/
+│   ├── didWeJustBecomeBestFriends.js
+│   ├── prestigeWorldwide.js
+├── rickyBobby/
+│   ├── iWakeUpAndPissExcellence.js
+│   ├── iRaiseWinners.js
+│   ├── shakeAndBake.js
+├── oldSchool/
+│   ├── youMyBoyBlue.js
+├── news/
+│   ├── thatEscalatedQuickly.js
+│   ├── stayClassy.js
+│   ├── milkWasABadChoice.js
+├── tommy/
+│   ├── roomService.js
+│   ├── fatGuyInALittleCoat.js
 
-Your generated `index.js` will look like this:  
-
-```javascript
-/**
- * This file is auto-generated by the build script.
- * It consolidates API functions for use in the application.
- * Do not edit manually.
- */
-
-import utils_formatDate from './src/utils/formatDate.js';
-import utils_generateId from './src/utils/generateId.js';
-import services_fetchData from './src/services/fetchData.js';
-import calculate from './src/calculate.js';
-
-export { calculate };
-export default {
-    utils: {
-        formatDate: utils_formatDate,
-        generateId: utils_generateId
-    },
-    services: {
-        fetchData: services_fetchData
-    },
-    calculate
-};
-```
-
-Your api is now neatly organized and ready to use!
-and will look like this
-```javascript
-import { calculate } from './api.js';
-const result = calculate(5, 10);
-console.log(result);
-```
-
-or 
-
-```javascript
-import { utils } from './api.js';
-const id = utils.generateId();
-console.log(id);
 ```
 
 
+Use it like:
+
+```js
+
+// Default import: full API
+import api from './index.js';
+
+// Use the full API
+api.roxbury.didYouGrabMyAss();
+api.bros.didWeJustBecomeBestFriends();
+api.rickyBobby.shakeAndBake();
+api.news.stayClassy();
+api.tommy.fatGuyInALittleCoat();
+```
+
+```js
+
+// Named import also work
+import { youMyBoy, roxbury } from './api.js';
+
+// Use the named group
+youMyBoy.blue();
+roxbury.didYouGrabMyAss();
+
+```
 
 ---
 
-## 🚀 Who Should Use This?  
+## 👤 Who’s This For?  
 
-- **Node.js developers** who want automatic API exports.  
-- **Backend teams** managing large function directories.  
-- **Anyone tired of manually updating `index.js` files.**  
+- **Node.js developers** managing a growing set of internal functions  
+- **Teams** who want clean and consistent APIs  
+- **Anyone tired of rewriting or syncing `index.js` manually**  
 
-If you don’t need Webpack’s **complexity** but want **automatic structured exports**, this script is for you.  
+If you want a smarter way to manage and structure exports in a Node.js project — without extra tooling bloat — this script was built for you.
 
-👉 **Try it out and let automation handle your exports!** 🚀  
+---
 
+### 🛠️ Requirements
+
+- Node.js v18+
+- One runtime dependency: [`chokidar`](https://github.com/paulmillr/chokidar) (for `hotModuleReload` mode)
+
+---
+
+👉 **Try it out — your exports will never be out of sync again.**

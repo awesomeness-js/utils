@@ -40,6 +40,7 @@ import type _utils_generateNamedExports from './utils/generateNamedExports';
 import type _utils_generateNamespaceCode from './utils/generateNamespaceCode';
 import type _utils_generateNamespaceExportLines from './utils/generateNamespaceExportLines';
 import type _utils_shouldIgnore from './utils/shouldIgnore';
+import type _utils_writeHotWrapper from './utils/writeHotWrapper';
 import type _uuid from './uuid';
 import type _validateSchema from './validateSchema';
 
@@ -136,6 +137,7 @@ declare const _default: {
 		generateNamespaceCode: typeof _utils_generateNamespaceCode,
 		generateNamespaceExportLines: typeof _utils_generateNamespaceExportLines,
 		shouldIgnore: typeof _utils_shouldIgnore,
+		writeHotWrapper: typeof _utils_writeHotWrapper,
 	},
 };
 
