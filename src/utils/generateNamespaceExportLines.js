@@ -8,7 +8,13 @@ export default function generateNamespaceExportLines(nestedExports, includeComme
 
 	for (const ns in nestedExports) {
 
-		const nsCode = generateNamespaceCode(nestedExports[ns], 1, includeComments, dts, useTabs);
+		const nsCode = generateNamespaceCode({
+			nsObj: nestedExports[ns],
+			indentLevel: 1,
+			includeComments,
+			dts,
+			useTabs
+		});
 
 		lines += `${indentStyle}${ns}: ${nsCode},\n`;
 

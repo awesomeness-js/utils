@@ -1,4 +1,8 @@
-export default function generateNamedExports(flatExports, exportRoots, dts) {
+export default function generateNamedExports({
+	flatExports, 
+	exportRoots, 
+	dts
+}) {
 
 	let lines = '';
 

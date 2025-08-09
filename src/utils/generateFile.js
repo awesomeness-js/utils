@@ -5,9 +5,20 @@ import generateFlatExportLines from './generateFlatExportLines.js';
 import generateNamespaceExportLines from './generateNamespaceExportLines.js';
 import generateNamedExports from './generateNamedExports.js';
 
-export default function generateFile(src, exportRoots, ignore, includeComments, dts, useTabs = true) {
+export default function generateFile({
+	src, 
+	exportRoots, 
+	ignore, 
+	includeComments, 
+	dts, 
+	useTabs = true
+}) {
 
-	const fileDataList = buildFileDataList(src, ignore, includeComments);
+	const fileDataList = buildFileDataList({
+		src,
+		ignore,
+		includeComments
+	});
 	const {
 		flatExports, nestedExports 
 	} = buildExportsTree(fileDataList);
@@ -17,15 +28,30 @@ export default function generateFile(src, exportRoots, ignore, includeComments, 
  * Do not edit manually.
  */
 `;
-	const importStatements = generateImportStatements(fileDataList, dts, src);
-	const flatExportLines = generateFlatExportLines(flatExports, exportRoots, includeComments, dts, useTabs);
+	const importStatements = generateImportStatements({
+		fileDataList,
+		dts,
+		src
+	});
+
+	const flatExportLines = generateFlatExportLines({
+		flatExports,
+		exportRoots,
+		includeComments,
+		dts,
+		useTabs
+	});
 	const namespaceExportLines = generateNamespaceExportLines(nestedExports, includeComments, dts, useTabs);
 	
 	const defaultExportCode = dts
 		? `declare const _default: {\n${flatExportLines}${namespaceExportLines}};\n\nexport default _default;\n`
 		: `export default {\n${flatExportLines}${namespaceExportLines}};`;
 
-	const namedExports = generateNamedExports(flatExports, exportRoots, dts);
+	const namedExports = generateNamedExports({
+		flatExports,
+		exportRoots,
+		dts
+	});
 
     
 	return headerComment +

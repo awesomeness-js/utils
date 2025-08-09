@@ -23,7 +23,14 @@ async function build({
 	useTabs = true
 } = {}) {
 
-	writeFileSync(dest, generateFile(src, exportRoots, ignore, includeComments, dts, useTabs));
+	writeFileSync(dest, generateFile({
+		src,
+		exportRoots,
+		ignore,
+		includeComments,
+		dts,
+		useTabs
+	}));
 	
 	return true;
 

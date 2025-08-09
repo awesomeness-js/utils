@@ -1,4 +1,10 @@
-export default function generateFlatExportLines(flatExports, exportRoots, includeComments, dts, useTabs = true) {
+export default function generateFlatExportLines({
+	flatExports, 
+	exportRoots, 
+	includeComments, 
+	dts, 
+	useTabs = true
+}) {
 
 	let indentStyle = useTabs ? '\t' : '    ';
 
