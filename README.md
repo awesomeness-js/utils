@@ -57,7 +57,7 @@ Webpack is a great bundler, but it’s not suited for building a structured expo
 To run it:
 
 ```js
-import build from '@awesomeness-js/utils/build.js';
+import { build } from '@awesomeness-js/utils';
 
 await build();
 ```
