@@ -20,13 +20,12 @@ import _each from './src/each.js';
 import _eachAsync from './src/eachAsync.js';
 import _encrypt from './src/encrypt.js';
 import _getAllFiles from './src/getAllFiles.js';
-import _ignoreFolder_ignoreMe from './src/ignoreFolder/ignoreMe.js';
-import _ignoreMe from './src/ignoreMe.js';
 import _isUUID from './src/isUUID.js';
 import _md5 from './src/md5.js';
 import _password_check from './src/password/check.js';
 import _password_hash from './src/password/hash.js';
 import _setLocalEnvs from './src/setLocalEnvs.js';
+import _shouldIgnore from './src/shouldIgnore.js';
 import _thingType from './src/thingType.js';
 import _toPennies from './src/toPennies.js';
 import _utils_buildExportsTree from './src/utils/buildExportsTree.js';
@@ -39,7 +38,6 @@ import _utils_generateImportStatements from './src/utils/generateImportStatement
 import _utils_generateNamedExports from './src/utils/generateNamedExports.js';
 import _utils_generateNamespaceCode from './src/utils/generateNamespaceCode.js';
 import _utils_generateNamespaceExportLines from './src/utils/generateNamespaceExportLines.js';
-import _utils_shouldIgnore from './src/utils/shouldIgnore.js';
 import _utils_writeHotWrapper from './src/utils/writeHotWrapper.js';
 import _uuid from './src/uuid.js';
 import _validateSchema from './src/validateSchema.js';
@@ -53,14 +51,45 @@ export { _each as each };
 export { _eachAsync as eachAsync };
 export { _encrypt as encrypt };
 export { _getAllFiles as getAllFiles };
-export { _ignoreMe as ignoreMe };
 export { _isUUID as isUUID };
 export { _md5 as md5 };
 export { _setLocalEnvs as setLocalEnvs };
+export { _shouldIgnore as shouldIgnore };
 export { _thingType as thingType };
 export { _toPennies as toPennies };
 export { _uuid as uuid };
 export { _validateSchema as validateSchema };
+
+export const clean = {
+	array: _clean_array,
+	boolean: _clean_boolean,
+	integer: _clean_integer,
+	number: _clean_number,
+	object: _clean_object,
+	string: _clean_string,
+	timestamp: _clean_timestamp,
+	uuid: _clean_uuid
+};
+
+export const password = {
+	check: _password_check,
+	hash: _password_hash
+};
+
+export const utils = {
+	buildExportsTree: _utils_buildExportsTree,
+	buildFileDataList: _utils_buildFileDataList,
+	clean: _utils_clean,
+	extractJSDocComment: _utils_extractJSDocComment,
+	generateFile: _utils_generateFile,
+	generateFlatExportLines: _utils_generateFlatExportLines,
+	generateImportStatements: _utils_generateImportStatements,
+	generateNamedExports: _utils_generateNamedExports,
+	generateNamespaceCode: _utils_generateNamespaceCode,
+	generateNamespaceExportLines: _utils_generateNamespaceExportLines,
+	writeHotWrapper: _utils_writeHotWrapper
+};
+
 
 export default {
 	/**
@@ -100,10 +129,10 @@ export default {
 	eachAsync: _eachAsync,
 	encrypt: _encrypt,
 	getAllFiles: _getAllFiles,
-	ignoreMe: _ignoreMe,
 	isUUID: _isUUID,
 	md5: _md5,
 	setLocalEnvs: _setLocalEnvs,
+	shouldIgnore: _shouldIgnore,
 	thingType: _thingType,
 	toPennies: _toPennies,
 	uuid: _uuid,
@@ -117,9 +146,6 @@ export default {
 		string: _clean_string,
 		timestamp: _clean_timestamp,
 		uuid: _clean_uuid,
-	},
-	ignoreFolder: {
-		ignoreMe: _ignoreFolder_ignoreMe,
 	},
 	password: {
 		check: _password_check,
@@ -136,7 +162,6 @@ export default {
 		generateNamedExports: _utils_generateNamedExports,
 		generateNamespaceCode: _utils_generateNamespaceCode,
 		generateNamespaceExportLines: _utils_generateNamespaceExportLines,
-		shouldIgnore: _utils_shouldIgnore,
 		writeHotWrapper: _utils_writeHotWrapper,
 	},
 };

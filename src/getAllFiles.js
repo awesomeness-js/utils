@@ -2,7 +2,7 @@ import {
 	readdirSync, statSync 
 } from 'fs';
 import { join } from 'path';
-import shouldIgnore from './utils/shouldIgnore.js';
+import shouldIgnore from './shouldIgnore.js';
 
 export default function getAllFiles(base, {
 	dir = '.',

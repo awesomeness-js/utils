@@ -20,13 +20,12 @@ import type _each from './each';
 import type _eachAsync from './eachAsync';
 import type _encrypt from './encrypt';
 import type _getAllFiles from './getAllFiles';
-import type _ignoreFolder_ignoreMe from './ignoreFolder/ignoreMe';
-import type _ignoreMe from './ignoreMe';
 import type _isUUID from './isUUID';
 import type _md5 from './md5';
 import type _password_check from './password/check';
 import type _password_hash from './password/hash';
 import type _setLocalEnvs from './setLocalEnvs';
+import type _shouldIgnore from './shouldIgnore';
 import type _thingType from './thingType';
 import type _toPennies from './toPennies';
 import type _utils_buildExportsTree from './utils/buildExportsTree';
@@ -39,7 +38,6 @@ import type _utils_generateImportStatements from './utils/generateImportStatemen
 import type _utils_generateNamedExports from './utils/generateNamedExports';
 import type _utils_generateNamespaceCode from './utils/generateNamespaceCode';
 import type _utils_generateNamespaceExportLines from './utils/generateNamespaceExportLines';
-import type _utils_shouldIgnore from './utils/shouldIgnore';
 import type _utils_writeHotWrapper from './utils/writeHotWrapper';
 import type _uuid from './uuid';
 import type _validateSchema from './validateSchema';
@@ -53,14 +51,45 @@ export declare const each: typeof _each;
 export declare const eachAsync: typeof _eachAsync;
 export declare const encrypt: typeof _encrypt;
 export declare const getAllFiles: typeof _getAllFiles;
-export declare const ignoreMe: typeof _ignoreMe;
 export declare const isUUID: typeof _isUUID;
 export declare const md5: typeof _md5;
 export declare const setLocalEnvs: typeof _setLocalEnvs;
+export declare const shouldIgnore: typeof _shouldIgnore;
 export declare const thingType: typeof _thingType;
 export declare const toPennies: typeof _toPennies;
 export declare const uuid: typeof _uuid;
 export declare const validateSchema: typeof _validateSchema;
+
+export declare const clean: {
+	array: typeof _clean_array;
+	boolean: typeof _clean_boolean;
+	integer: typeof _clean_integer;
+	number: typeof _clean_number;
+	object: typeof _clean_object;
+	string: typeof _clean_string;
+	timestamp: typeof _clean_timestamp;
+	uuid: typeof _clean_uuid;
+};
+
+export declare const password: {
+	check: typeof _password_check;
+	hash: typeof _password_hash;
+};
+
+export declare const utils: {
+	buildExportsTree: typeof _utils_buildExportsTree;
+	buildFileDataList: typeof _utils_buildFileDataList;
+	clean: typeof _utils_clean;
+	extractJSDocComment: typeof _utils_extractJSDocComment;
+	generateFile: typeof _utils_generateFile;
+	generateFlatExportLines: typeof _utils_generateFlatExportLines;
+	generateImportStatements: typeof _utils_generateImportStatements;
+	generateNamedExports: typeof _utils_generateNamedExports;
+	generateNamespaceCode: typeof _utils_generateNamespaceCode;
+	generateNamespaceExportLines: typeof _utils_generateNamespaceExportLines;
+	writeHotWrapper: typeof _utils_writeHotWrapper;
+};
+
 
 declare const _default: {
 	/**
@@ -100,10 +129,10 @@ declare const _default: {
 	eachAsync: typeof _eachAsync;
 	encrypt: typeof _encrypt;
 	getAllFiles: typeof _getAllFiles;
-	ignoreMe: typeof _ignoreMe;
 	isUUID: typeof _isUUID;
 	md5: typeof _md5;
 	setLocalEnvs: typeof _setLocalEnvs;
+	shouldIgnore: typeof _shouldIgnore;
 	thingType: typeof _thingType;
 	toPennies: typeof _toPennies;
 	uuid: typeof _uuid;
@@ -117,9 +146,6 @@ declare const _default: {
 		string: typeof _clean_string,
 		timestamp: typeof _clean_timestamp,
 		uuid: typeof _clean_uuid,
-	},
-	ignoreFolder: {
-		ignoreMe: typeof _ignoreFolder_ignoreMe,
 	},
 	password: {
 		check: typeof _password_check,
@@ -136,7 +162,6 @@ declare const _default: {
 		generateNamedExports: typeof _utils_generateNamedExports,
 		generateNamespaceCode: typeof _utils_generateNamespaceCode,
 		generateNamespaceExportLines: typeof _utils_generateNamespaceExportLines,
-		shouldIgnore: typeof _utils_shouldIgnore,
 		writeHotWrapper: typeof _utils_writeHotWrapper,
 	},
 };

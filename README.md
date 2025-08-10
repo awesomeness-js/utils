@@ -1,6 +1,10 @@
 # Nothing Special
 
-Just some <u>cleanly generated API exports</u> for your Node.js utils...
+Just some <u>zero dependency</u>* utils that every [Awesomeness.js](https://github.com/awesomeness-js) project uses.
+
+**Perfect?** Far from it.
+
+Better than what you have now? For sure.
 
 ---
 
@@ -8,14 +12,18 @@ Just some <u>cleanly generated API exports</u> for your Node.js utils...
 
 ## 📌 Why "build" Exists  
 
-When working on a Node.js project, you often need to import multiple functions from a directory and structure them in a clean, accessible way. Webpack is overkill for this—it’s designed for browser bundling, not for generating structured API exports in a Node.js environment. 
+When you’re building a Node.js project, pulling functions together into a clean, predictable API shouldn’t feel like busywork. But maintaining a manual `index.js` is a waste of time, and Webpack? That’s a browser bundler—great for shipping front-end bundles, useless for building a logical backend export layer.  
 
-This script **automates** the process of maintaining your `index.js` file. It scans your source directory (`./src`), imports functions, and generates an output that:  
+This script takes that grunt work off your plate and does it **right**:  
 
-✅ **Consolidates all exports** into a structured API object  
-✅ **Preserves function names and namespaces** based on folder structure.  
-✅ **Extracts JSDoc comments** for better documentation.  
-✅ **Works in plain Node.js**—no need for Webpack or extra dependencies.   
+✅ **Consolidates all exports** into a single, perfectly structured API object  
+✅ **Keeps function names and namespaces** exactly as your folder structure dictates—no mystery, no guessing  
+✅ **Pulls in JSDoc comments** so your documentation is baked right into the build. Intellisense loves this.  
+✅ **Runs in plain Node.js**—zero bundlers, zero fluff, zero excuses  
+
+
+Hint: Use the [Awesomeness Intellitip](https://marketplace.visualstudio.com/items?itemName=awesomeness.awesomeness-intellitip) VS Code Extension for classy hover documentation.
+
 
 ---
 
@@ -67,7 +75,7 @@ await build({
   dest: './api.js',
   includeComments: true,
   useTabs: true,
-  hotModuleReload: true // Enable hot reload for dev  
+  hotModuleReload: true // Enable hot reload for dev
 });
 ```
 
@@ -80,7 +88,7 @@ Given this folder structure:
 ```
 src/
 ├── roxbury/
-│   ├── didYouGrabMyAss.js
+│   ├── didYouJustGrabMyAss.js
 │   ├── areYouGuysBrothers.js
 ├── bros/
 │   ├── didWeJustBecomeBestFriends.js
@@ -98,11 +106,14 @@ src/
 ├── tommy/
 │   ├── roomService.js
 │   ├── fatGuyInALittleCoat.js
-
+├── menInTights/
+│   ├── youGrewBoobs.js
+│   ├── merryMen/
+│   │   ├── snipTheTip.js
 ```
 
 
-Use it like:
+#### Use it like:
 
 ```js
 
@@ -110,11 +121,15 @@ Use it like:
 import api from './index.js';
 
 // Use the full API
-api.roxbury.didYouGrabMyAss();
-api.bros.didWeJustBecomeBestFriends();
+api.roxbury.didYouJustGrabMyAss();
+
+// perfect for CTRL+F
 api.rickyBobby.shakeAndBake();
-api.news.stayClassy();
-api.tommy.fatGuyInALittleCoat();
+
+// deep
+api.menInTights.youGrewBoobs();
+api.menInTights.merryMen.snipTheTip();
+
 ```
 
 ```js
@@ -130,21 +145,31 @@ roxbury.didYouGrabMyAss();
 
 ---
 
-## 👤 Who’s This For?  
+## 💪 Who’s This For?  
 
-- **Node.js developers** managing a growing set of internal functions  
-- **Teams** who want clean and consistent APIs  
-- **Anyone tired of rewriting or syncing `index.js` manually**  
+- **Teams** who want **clean and consistent** APIs  
+- **Expert** ~~developers~~ **architects** obsessed with 
+  - organization
+  - hierarchy
+  - explicit namespacing
+  - clean code
+- **Champions** who know CTRL+F `app.roxbury.didYouJustGrabMyAss` will <u>always beat</u> any “magic” refactor tool when it comes to finding **every. single. usage.**  
+- Developers who refuse to hide functions behind lazy aliases, and instead demand predictable, grep-able APIs that tell you **exactly where the code lives.**
 
 If you want a smarter way to manage and structure exports in a Node.js project — without extra tooling bloat — this script was built for you.
 
----
+If that makes you hard, you’re in the right place. 
 
-### 🛠️ Requirements
-
-- Node.js v18+
-- One runtime dependency: [`chokidar`](https://github.com/paulmillr/chokidar) (for `hotModuleReload` mode)
+> If it makes you mad… you’ve probably never built a scalable codebase.
 
 ---
 
-👉 **Try it out — your exports will never be out of sync again.**
+**Ready to make development great again?**
+👉 [awesomenessjs.com](https://awesomenessjs.com)
+
+--- 
+✱ disclaimer... *Kinda zero dependencies.*
+Zero **prod** dependencies.
+> dev dependencies:
+> `chokidar` for hot module reloading (HMR) 
+> `vitest` for testing
