@@ -4,6 +4,12 @@ build({
 	src: './src',
 	dest: './index.js',
 	dts: false,
+	hotModuleReload: false,
+	hotCallback: (file) => {
+
+		console.log(`[build callback] processed ${file}`);
+
+	},
 	ignore: [
 		'ignoreMe.js',
 		'ignoreFolder/*',
