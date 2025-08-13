@@ -38,7 +38,6 @@ import _utils_generateImportStatements from './src/utils/generateImportStatement
 import _utils_generateNamedExports from './src/utils/generateNamedExports.js';
 import _utils_generateNamespaceCode from './src/utils/generateNamespaceCode.js';
 import _utils_generateNamespaceExportLines from './src/utils/generateNamespaceExportLines.js';
-import _utils_writeHotWrapper from './src/utils/writeHotWrapper.js';
 import _uuid from './src/uuid.js';
 import _validateSchema from './src/validateSchema.js';
 
@@ -86,8 +85,7 @@ export const utils = {
 	generateImportStatements: _utils_generateImportStatements,
 	generateNamedExports: _utils_generateNamedExports,
 	generateNamespaceCode: _utils_generateNamespaceCode,
-	generateNamespaceExportLines: _utils_generateNamespaceExportLines,
-	writeHotWrapper: _utils_writeHotWrapper
+	generateNamespaceExportLines: _utils_generateNamespaceExportLines
 };
 
 
@@ -162,6 +160,5 @@ export default {
 		generateNamedExports: _utils_generateNamedExports,
 		generateNamespaceCode: _utils_generateNamespaceCode,
 		generateNamespaceExportLines: _utils_generateNamespaceExportLines,
-		writeHotWrapper: _utils_writeHotWrapper,
 	},
 };

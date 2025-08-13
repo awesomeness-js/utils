@@ -36,7 +36,7 @@ Webpack is a great bundler, but it’s not suited for building a structured expo
 ✔ **Simple and predictable**—You control how exports are structured.  
 ✔ **Namespace support**—Uses folder structure to organize functions logically.  
 ✔ **Minimal setup** — one line to generate your exports  
-✔ **Dev-friendly hot rebuild** — optional file watching with HMR-style rebuilds  
+
 
 > Uses `chokidar` under the hood for reliable cross-platform file watching.
 
@@ -75,7 +75,6 @@ await build({
   dest: './api.js',
   includeComments: true,
   useTabs: true,
-  hotModuleReload: true // Enable hot reload for dev
 });
 ```
 
@@ -171,5 +170,4 @@ If that makes you hard, you’re in the right place.
 ✱ disclaimer... *Kinda zero dependencies.*
 Zero **prod** dependencies.
 > dev dependencies:
-> `chokidar` for hot module reloading (HMR) 
 > `vitest` for testing

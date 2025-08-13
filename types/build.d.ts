@@ -1,5 +1,5 @@
 export default build;
-declare function build({ src, dest, exportRoots, ignore, includeComments, dts, useTabs, hotModuleReload, hotCallback, hotSource }?: {
+declare function build({ src, dest, exportRoots, ignore, includeComments, dts, useTabs, }?: {
     src?: string;
     dest?: string;
     exportRoots?: boolean;
@@ -7,7 +7,4 @@ declare function build({ src, dest, exportRoots, ignore, includeComments, dts, u
     includeComments?: boolean;
     dts?: boolean;
     useTabs?: boolean;
-    hotModuleReload?: boolean;
-    hotCallback?: any;
-    hotSource?: string;
 }): Promise<boolean>;
