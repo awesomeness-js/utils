@@ -4,7 +4,9 @@ export default function cleanString(x, {
 	maxLength = false,
 	allowHtml = false,
 	allowScripts = false,
-	validValues = false
+	validValues = false,
+	format = false,
+	pattern = false
 } = {}){
 
 	if(allowScripts && !allowHtml){
@@ -75,6 +77,53 @@ export default function cleanString(x, {
 				value: x
 			};
 		
+		}
+
+		if(format === 'email') {
+
+			const emailRegex = /^(?!@)(?!.*@.*@)(?!.*\.\.)(?!\.\.)(?!.*-$)(?!.*-$)(?!.*\.-)[A-Za-z0-9._%+-]+(?:@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,})$/;
+			
+			if(!emailRegex.test(x)) {
+
+				throw {
+					message: 'Invalid email format',
+					value: x
+				};
+
+			}
+
+		}
+
+		if(pattern) {
+
+			// make sure pattern is itself a regex
+			if(!(pattern instanceof RegExp)) {
+
+				try {
+
+					pattern = new RegExp(pattern);
+
+				} catch (e) {
+
+					throw {
+						message: 'Pattern is not a valid regular expression',
+						pattern,
+						value: x
+					};
+
+				}
+
+			}
+
+			if(!pattern.test(x)) {
+
+				throw {
+					message: 'Invalid format',
+					value: x
+				};
+
+			}
+
 		}
 
 		return x;
