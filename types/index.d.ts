@@ -40,6 +40,7 @@ import type _utils_generateNamespaceCode from './utils/generateNamespaceCode';
 import type _utils_generateNamespaceExportLines from './utils/generateNamespaceExportLines';
 import type _uuid from './uuid';
 import type _validateSchema from './validateSchema';
+import type _wait from './wait';
 
 export declare const build: typeof _build;
 export declare const collectImports: typeof _collectImports;
@@ -58,6 +59,7 @@ export declare const thingType: typeof _thingType;
 export declare const toPennies: typeof _toPennies;
 export declare const uuid: typeof _uuid;
 export declare const validateSchema: typeof _validateSchema;
+export declare const wait: typeof _wait;
 
 export declare const clean: {
 	array: typeof _clean_array;
@@ -135,6 +137,7 @@ declare const _default: {
 	toPennies: typeof _toPennies;
 	uuid: typeof _uuid;
 	validateSchema: typeof _validateSchema;
+	wait: typeof _wait;
 	clean: {
 		array: typeof _clean_array,
 		boolean: typeof _clean_boolean,

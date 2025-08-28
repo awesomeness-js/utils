@@ -40,6 +40,7 @@ import _utils_generateNamespaceCode from './src/utils/generateNamespaceCode.js';
 import _utils_generateNamespaceExportLines from './src/utils/generateNamespaceExportLines.js';
 import _uuid from './src/uuid.js';
 import _validateSchema from './src/validateSchema.js';
+import _wait from './src/wait.js';
 
 export { _build as build };
 export { _collectImports as collectImports };
@@ -58,6 +59,7 @@ export { _thingType as thingType };
 export { _toPennies as toPennies };
 export { _uuid as uuid };
 export { _validateSchema as validateSchema };
+export { _wait as wait };
 
 export const clean = {
 	array: _clean_array,
@@ -135,6 +137,7 @@ export default {
 	toPennies: _toPennies,
 	uuid: _uuid,
 	validateSchema: _validateSchema,
+	wait: _wait,
 	clean: {
 		array: _clean_array,
 		boolean: _clean_boolean,
