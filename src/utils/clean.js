@@ -9,7 +9,7 @@ import cleanString from '../clean/string.js';
 import cleanTimestamp from '../clean/timestamp.js';
 import cleanUUID from '../clean/uuid.js';
 
-function cleanArray(arr, schema = {}){
+function cleanArray(arr, schema = {}, testMode = false){
 
 	try {
 
@@ -146,7 +146,7 @@ function cleanArray(arr, schema = {}){
 }
 
 
-function cleanObject(obj, schema){
+function cleanObject(obj, schema, testMode = false){
 
 	validateSchema(schema);
 
@@ -179,6 +179,10 @@ function cleanObject(obj, schema){
 	
 	}
 
+	if(testMode){
+		console.log('cleanObject keysPassed:', keysPassed);
+	}
+
 	const cleanObj = {};
 
 	// Iterate over the schema keys
@@ -186,6 +190,14 @@ function cleanObject(obj, schema){
 
 		const valType = thingType(value);
 		const supposedToBeType = schema.properties[key].type;
+
+		if(testMode){
+			console.log(`cleaning ${key}`,{
+				valType,
+				supposedToBeType,
+				value,
+			});
+		}
 
 		if(valType !== supposedToBeType){
 
@@ -200,50 +212,75 @@ function cleanObject(obj, schema){
 
 		let cleanedValue;
 
+		const knownTypesToClean = [
+			'boolean',
+			'integer',
+			'number',
+			'string',
+			'timestamp',
+			'uuid',
+			'object',
+			'array'
+		];
+
+		if(!knownTypesToClean.includes(supposedToBeType)){
+
+			throw {
+				message: 'Unknown type to clean in schema',
+				supposedToBeType,
+				key
+			};
+
+		}
+
+		
+		if(testMode){ console.log('cleaning boolean', value); }
+
+
 		if(supposedToBeType === 'boolean'){
 
-			cleanedValue = cleanBoolean(value); 
+			cleanedValue = cleanBoolean(value, schema.properties[key]); 
 
 		}
 
 		if(supposedToBeType === 'integer'){
 
-			cleanedValue = cleanInteger(value); 
+			cleanedValue = cleanInteger(value, schema.properties[key]); 
 
 		}
 
 		if(supposedToBeType === 'number'){
 
-			cleanedValue = cleanNumber(value); 
+			cleanedValue = cleanNumber(value, schema.properties[key]); 
 
 		}
 
 		if(supposedToBeType === 'string'){
 
-			cleanedValue = cleanString(value); 
+			cleanedValue = cleanString(value, schema.properties[key]); 
 
 		}
 
 		if(supposedToBeType === 'timestamp'){
 
-			cleanedValue = cleanTimestamp(value); 
+			cleanedValue = cleanTimestamp(value, schema.properties[key]); 
 
 		}
 
 		if(supposedToBeType === 'uuid'){
 
-			cleanedValue = cleanUUID(value); 
+			cleanedValue = cleanUUID(value, schema.properties[key]); 
 
 		}
 
 		if(supposedToBeType === 'object'){
- 
+
 			cleanedValue = cleanObject(value, schema.properties[key]); 
 		
 		}
 
 		if(supposedToBeType === 'array'){
- 
+
 			cleanedValue = cleanArray(value, schema.properties[key]); 
 		
 		}
