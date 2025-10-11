@@ -9,8 +9,16 @@ declare namespace _default {
     export { cleanUUID as uuid };
 }
 export default _default;
-declare function cleanArray(arr: any, schema?: {}): any[];
-declare function cleanObject(obj: any, schema: any): {};
+declare function cleanArray(arr: any, schema?: {}, { testMode, allOrNothing, path }?: {
+    testMode?: boolean;
+    allOrNothing?: boolean;
+    path?: string;
+}): any[];
+declare function cleanObject(obj: any, schema: any, { testMode, allOrNothing, path }?: {
+    testMode?: boolean;
+    allOrNothing?: boolean;
+    path?: string;
+}): {};
 import cleanBoolean from '../clean/boolean.js';
 import cleanInteger from '../clean/integer.js';
 import cleanNumber from '../clean/number.js';

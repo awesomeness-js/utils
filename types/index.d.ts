@@ -6,6 +6,8 @@
 import type _build from './build';
 import type _clean_array from './clean/array';
 import type _clean_boolean from './clean/boolean';
+import type _clean_custom from './clean/custom';
+import type _clean_file from './clean/file';
 import type _clean_integer from './clean/integer';
 import type _clean_number from './clean/number';
 import type _clean_object from './clean/object';
@@ -64,6 +66,8 @@ export declare const wait: typeof _wait;
 export declare const clean: {
 	array: typeof _clean_array;
 	boolean: typeof _clean_boolean;
+	custom: typeof _clean_custom;
+	file: typeof _clean_file;
 	integer: typeof _clean_integer;
 	number: typeof _clean_number;
 	object: typeof _clean_object;
@@ -141,6 +145,8 @@ declare const _default: {
 	clean: {
 		array: typeof _clean_array,
 		boolean: typeof _clean_boolean,
+		custom: typeof _clean_custom,
+		file: typeof _clean_file,
 		integer: typeof _clean_integer,
 		number: typeof _clean_number,
 		object: typeof _clean_object,
