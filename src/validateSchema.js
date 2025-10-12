@@ -40,12 +40,14 @@ function validateSchema(schema){
 	const validTypes = [
 		'array',
 		'boolean',
+		'custom',
+		'file',
 		'integer',
 		'number',
 		'object',
 		'string',
 		'timestamp',
-		'uuid'
+		'uuid',
 	];
 
 	if(!schema.type || !validTypes.includes(schema.type)) {
