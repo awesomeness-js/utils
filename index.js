@@ -6,8 +6,8 @@
 import _build from './src/build.js';
 import _clean_array from './src/clean/array.js';
 import _clean_boolean from './src/clean/boolean.js';
+import _clean_buffer from './src/clean/buffer.js';
 import _clean_custom from './src/clean/custom.js';
-import _clean_file from './src/clean/file.js';
 import _clean_integer from './src/clean/integer.js';
 import _clean_number from './src/clean/number.js';
 import _clean_object from './src/clean/object.js';
@@ -66,8 +66,8 @@ export { _wait as wait };
 export const clean = {
 	array: _clean_array,
 	boolean: _clean_boolean,
+	buffer: _clean_buffer,
 	custom: _clean_custom,
-	file: _clean_file,
 	integer: _clean_integer,
 	number: _clean_number,
 	object: _clean_object,
@@ -145,8 +145,8 @@ export default {
 	clean: {
 		array: _clean_array,
 		boolean: _clean_boolean,
+		buffer: _clean_buffer,
 		custom: _clean_custom,
-		file: _clean_file,
 		integer: _clean_integer,
 		number: _clean_number,
 		object: _clean_object,
