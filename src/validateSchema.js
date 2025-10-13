@@ -40,8 +40,8 @@ function validateSchema(schema){
 	const validTypes = [
 		'array',
 		'boolean',
+		'buffer',
 		'custom',
-		'file',
 		'integer',
 		'number',
 		'object',

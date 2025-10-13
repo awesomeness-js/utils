@@ -29,6 +29,19 @@ export default (thing) => {
 	if (type === 'object' && thing !== null) {
 
 		type = Array.isArray(thing) ? 'array' : 'object';
+
+		if(type ===  'object'){
+
+			// is this a file / buffer
+			const isBuffer = thing instanceof Buffer || thing instanceof ArrayBuffer || thing instanceof Blob;
+
+			if(isBuffer){
+
+				type = 'buffer';
+
+			}
+
+		}
 		
 		return type;
 	

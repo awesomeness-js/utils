@@ -10,14 +10,15 @@ import cleanTimestamp from '../clean/timestamp.js';
 import cleanUUID from '../clean/uuid.js';
 
 const knownTypesToClean = [
+	'array',
 	'boolean',
+	'buffer',
 	'integer',
 	'number',
+	'object',
 	'string',
 	'timestamp',
 	'uuid',
-	'object',
-	'array'
 ];
 
 function cleanArray(arr, schema = {}, {
