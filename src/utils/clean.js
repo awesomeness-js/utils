@@ -271,10 +271,28 @@ function cleanObject(obj, schema, {
 	// Iterate over the schema keys
 	each(schema.properties, (schemaItemProperties, key) => {
 
+		let cleanedValue;
+
 		const value = obj[key];
 
 		const valType = thingType(value);
 		const supposedToBeType = schemaItemProperties.type;
+
+		if(valType === 'undefined'){
+			
+			if(schemaItemProperties.required){
+
+				throw {
+					message: 'key required',
+					key,
+					schemaItemProperties
+				};
+			
+			}
+
+			return true;
+			
+		}
 
 		if(valType !== supposedToBeType){
 

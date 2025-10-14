@@ -201,7 +201,8 @@ test('testObject2', () => {
 	try {
 
 		const cleanedObject = utils.clean.object(testObject2, schema2);
-		//console.log('cleanedObject', cleanedObject);
+
+		console.log('cleanedObject', cleanedObject);
 
 		expect(cleanedObject).toStrictEqual(testObject2);
 	
