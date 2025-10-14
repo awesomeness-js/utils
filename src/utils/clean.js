@@ -75,7 +75,11 @@ function cleanArray(arr, schema = {}, {
 				}
 
 
-				if(testMode){ console.log(`cleaning ${supposedToBeType}`, item, schema.items); }
+				if(testMode){
+
+					console.log(`cleaning ${supposedToBeType}`, item, schema.items); 
+
+				}
 
 
 				if(supposedToBeType === 'boolean'){
@@ -256,7 +260,9 @@ function cleanObject(obj, schema, {
 	}
 
 	if(testMode){
+
 		console.log('cleanObject keysPassed:', keysPassed);
+	
 	}
 
 	const cleanObj = {};
@@ -273,11 +279,13 @@ function cleanObject(obj, schema, {
 			const supposedToBeType = schema.properties[key].type;
 
 			if(testMode){
+
 				console.log(`cleaning ${key}`,{
 					valType,
 					supposedToBeType,
 					value,
 				});
+			
 			}
 
 			if(valType !== supposedToBeType){
@@ -303,7 +311,11 @@ function cleanObject(obj, schema, {
 			}
 
 			
-			if(testMode){ console.log(`cleaning ${supposedToBeType}`, value, schema.properties[key]); }
+			if(testMode){
+
+				console.log(`cleaning ${supposedToBeType}`, value, schema.properties[key]); 
+
+			}
 
 
 			if(supposedToBeType === 'boolean'){
