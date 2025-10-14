@@ -269,130 +269,93 @@ function cleanObject(obj, schema, {
 	const errors = {};
 
 	// Iterate over the schema keys
-	each(obj, (value, key) => {
+	each(schema.properties, (schemaItemProperties, key) => {
 
-		let cleanedValue;
+		const value = obj[key];
 
-		try {
+		const valType = thingType(value);
+		const supposedToBeType = schemaItemProperties.type;
 
-			const valType = thingType(value);
-			const supposedToBeType = schema.properties[key].type;
+		if(valType !== supposedToBeType){
 
-			if(testMode){
-
-				console.log(`cleaning ${key}`,{
-					valType,
-					supposedToBeType,
-					value,
-				});
-			
-			}
-
-			if(valType !== supposedToBeType){
-
+			if(schemaItemProperties.required){
+	
 				throw {
 					message: 'type invalid',
 					valType,
 					supposedToBeType,
 					key
 				};
-
-			}
-
-
-			if(!knownTypesToClean.includes(supposedToBeType)){
-
-				throw {
-					message: 'Unknown type to clean in schema',
-					supposedToBeType,
-					key
-				};
-
-			}
-
-			
-			if(testMode){
-
-				console.log(`cleaning ${supposedToBeType}`, value, schema.properties[key]); 
-
-			}
-
-
-			if(supposedToBeType === 'boolean'){
-
-				cleanedValue = cleanBoolean(value, schema.properties[key]); 
-
-			}
-
-			if(supposedToBeType === 'integer'){
-
-				cleanedValue = cleanInteger(value, schema.properties[key]); 
-
-			}
-
-			if(supposedToBeType === 'number'){
-
-				cleanedValue = cleanNumber(value, schema.properties[key]); 
-
-			}
-
-			if(supposedToBeType === 'string'){
-
-				cleanedValue = cleanString(value, schema.properties[key]); 
-
-			}
-
-			if(supposedToBeType === 'timestamp'){
-
-				cleanedValue = cleanTimestamp(value, schema.properties[key]); 
-
-			}
-
-			if(supposedToBeType === 'uuid'){
-
-				cleanedValue = cleanUUID(value, schema.properties[key]); 
-
-			}
-
-			if(supposedToBeType === 'object'){
-
-				cleanedValue = cleanObject(value, schema.properties[key], {
-					testMode,
-					allOrNothing,
-					path: path ? `${path}.${key}` : key
-				}); 
 			
 			}
 
-			if(supposedToBeType === 'array'){
+		}
 
-				cleanedValue = cleanArray(value, schema.properties[key], {
-					testMode,
-					allOrNothing,
-					path: path ? `${path}.${key}` : key
-				}); 
+
+		if(!knownTypesToClean.includes(supposedToBeType)){
+
+			throw {
+				message: 'Unknown type to clean in schema',
+				supposedToBeType,
+				key
+			};
+
+		}
+
 			
-			}
+		if(testMode){
 
-		} catch (err) {
+			console.log(`cleaning ${supposedToBeType}`, value, schema.properties[key]); 
 
-			if(allOrNothing){
-
-				throw err;
-
-			} else {
-
-				const errorPath = path ? `${path}.${key}` : key;
-
-				errors[errorPath] = {
-					error: err,
-					value: value,
-					requirements: schema.properties[key]
-				};
-
-			}
+		}
 
 
+		if(supposedToBeType === 'boolean'){
+
+			cleanedValue = cleanBoolean(value, schema.properties[key]); 
+
+		}
+
+		if(supposedToBeType === 'integer'){
+
+			cleanedValue = cleanInteger(value, schema.properties[key]); 
+
+		}
+
+		if(supposedToBeType === 'number'){
+
+			cleanedValue = cleanNumber(value, schema.properties[key]); 
+
+		}
+
+		if(supposedToBeType === 'string'){
+
+			cleanedValue = cleanString(value, schema.properties[key]); 
+
+		}
+
+		if(supposedToBeType === 'timestamp'){
+
+			cleanedValue = cleanTimestamp(value, schema.properties[key]); 
+
+		}
+
+		if(supposedToBeType === 'uuid'){
+
+			cleanedValue = cleanUUID(value, schema.properties[key]); 
+
+		}
+
+		if(supposedToBeType === 'object'){
+ 
+			cleanedValue = cleanObject(value, schema.properties[key]); 
+		
+		}
+
+		if(supposedToBeType === 'array'){
+ 
+			cleanedValue = cleanArray(value, schema.properties[key]); 
+		
 		}
 
 		cleanObj[key] = cleanedValue;
