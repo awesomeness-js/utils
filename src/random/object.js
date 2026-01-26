@@ -30,11 +30,24 @@ function randomObject({
 
 		if(typeof randomTypes[value.type] !== 'function') {
 
-			throw new Error(`Random function for type "${value.type}" is not defined.`);
-		
-		}
+			if(typeof value.random === 'function') {
+				result[key] = value.random();
+			} else if(
+				value.default !== undefined 
+				&& value.default !== null
+			) {
+				result[key] = value.default;
+			} else {
+				
+				result[key] = null;
 
-		result[key] = randomTypes[value.type](value);
+			}
+		
+		} else {
+
+			result[key] = randomTypes[value.type](value);
+
+		}
 
 	});
 

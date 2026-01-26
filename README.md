@@ -37,9 +37,6 @@ Webpack is a great bundler, but it’s not suited for building a structured expo
 ✔ **Namespace support**—Uses folder structure to organize functions logically.  
 ✔ **Minimal setup** — one line to generate your exports  
 
-
-> Uses `chokidar` under the hood for reliable cross-platform file watching.
-
 ---
 
 ## ⚙️ How It Works  
