@@ -65,15 +65,7 @@ const properties = {
 				}
 			}
 		}
-	},
-
-	exampleRef: {
-		type: 'array',
-		items: {
-			ref: 'someThing'
-		}
 	}
-
 };
 
 const edges = Object.freeze({
@@ -118,6 +110,7 @@ const relatedKVs = {
 export default {
 	name: 'Blog Post',
 	description: `a blog post`,
+	type: 'object',
 	properties,
 	edges,
 	edgesIn,

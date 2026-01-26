@@ -1,7 +1,5 @@
 // example.test.js
-import {
-	expect, test 
-} from 'vitest';
+import { expect, test } from 'vitest';
 import utils from '../index.js';
 
 // set AWESOMENESS_ENCRYPTION_KEY

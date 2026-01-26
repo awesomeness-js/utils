@@ -1,7 +1,5 @@
 import utils from '../index.js';
-import {
-	expect, test 
-} from 'vitest';
+import { expect, test } from 'vitest';
 
 test('collectImports', () => {
    

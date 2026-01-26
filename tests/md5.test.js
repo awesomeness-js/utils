@@ -1,7 +1,5 @@
 // example.test.js
-import {
-	expect, test 
-} from 'vitest';
+import { expect, test } from 'vitest';
 import utils from '../index.js';
 let md5Test = utils.md5('test');
 

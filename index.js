@@ -26,6 +26,15 @@ import _isUUID from './src/isUUID.js';
 import _md5 from './src/md5.js';
 import _password_check from './src/password/check.js';
 import _password_hash from './src/password/hash.js';
+import _random_array from './src/random/array.js';
+import _random_arrayValue from './src/random/arrayValue.js';
+import _random_boolean from './src/random/boolean.js';
+import _random_integer from './src/random/integer.js';
+import _random_number from './src/random/number.js';
+import _random_object from './src/random/object.js';
+import _random_string from './src/random/string.js';
+import _random_timestamp from './src/random/timestamp.js';
+import _random_uuid from './src/random/uuid.js';
 import _setLocalEnvs from './src/setLocalEnvs.js';
 import _shouldIgnore from './src/shouldIgnore.js';
 import _thingType from './src/thingType.js';
@@ -79,6 +88,18 @@ export const clean = {
 export const password = {
 	check: _password_check,
 	hash: _password_hash
+};
+
+export const random = {
+	array: _random_array,
+	arrayValue: _random_arrayValue,
+	boolean: _random_boolean,
+	integer: _random_integer,
+	number: _random_number,
+	object: _random_object,
+	string: _random_string,
+	timestamp: _random_timestamp,
+	uuid: _random_uuid
 };
 
 export const utils = {
@@ -157,6 +178,17 @@ export default {
 	password: {
 		check: _password_check,
 		hash: _password_hash,
+	},
+	random: {
+		array: _random_array,
+		arrayValue: _random_arrayValue,
+		boolean: _random_boolean,
+		integer: _random_integer,
+		number: _random_number,
+		object: _random_object,
+		string: _random_string,
+		timestamp: _random_timestamp,
+		uuid: _random_uuid,
 	},
 	utils: {
 		buildExportsTree: _utils_buildExportsTree,

@@ -1,7 +1,5 @@
 // example.test.js
-import {
-	expect, test 
-} from 'vitest';
+import { expect, test } from 'vitest';
 import utils from '../index.js';
 
 let combineTest = utils.combineFiles('./test', 'js');

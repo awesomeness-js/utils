@@ -1,7 +1,5 @@
 // example.test.js
-import {
-	expect, test 
-} from 'vitest';
+import { expect, test } from 'vitest';
 
 test('adds 2 + 3 to equal 5', () => {
 

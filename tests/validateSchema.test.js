@@ -1,6 +1,4 @@
-import {
-	expect, test 
-} from 'vitest';
+import { expect, test } from 'vitest';
 import utils from '../index.js';
 import schemas from '../schemas.js';
 
