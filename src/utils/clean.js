@@ -8,11 +8,13 @@ import cleanNumber from '../clean/number.js';
 import cleanString from '../clean/string.js';
 import cleanTimestamp from '../clean/timestamp.js';
 import cleanUUID from '../clean/uuid.js';
+import cleanCustom from '../clean/custom.js';
 
 const knownTypesToClean = [
 	'array',
 	'boolean',
 	'buffer',
+	'custom',
 	'integer',
 	'number',
 	'object',
@@ -130,12 +132,18 @@ function cleanArray(arr, schema = {}, {
 
 				if(supposedToBeType === 'object'){
 	
-					cleanedItem = cleanObject(item, schema.items, {
+					cleanedItem = cleanObject(item, schema.properties, {
 						testMode,
 						allOrNothing,
 						path: path ? `${path}.${key}` : key
 					}); 
 				
+				}
+
+				if(supposedToBeType === 'custom'){
+	
+					cleanedItem = cleanCustom(item, schema.items);
+
 				}
 
 				if(cleanedItem === null){
