@@ -1,62 +1,48 @@
-import {
-	readdirSync, statSync 
-} from 'fs';
-import { join } from 'path';
-import shouldIgnore from './shouldIgnore.js';
+import { readdirSync, statSync } from "fs";
+import path from "path";
+import shouldIgnore from "./shouldIgnore.js";
 
 export default function getAllFiles(base, {
-	dir = '.',
-	files = [], 
-	ignore = [],
-	fileTypes = []
+  dir = ".",
+  files = [],
+  ignore = [],
+  fileTypes = [],
 } = {}) {
 
-	const directory = join(base, dir);
+  const isAbsDir = path.isAbsolute(dir);
 
-	const sortedFiles = readdirSync(directory).sort();
+  // ✅ if dir is absolute, don't join it onto base
+  const directory = isAbsDir ? dir : path.join(base, dir);
 
-	sortedFiles.forEach((file) => {
+  const sortedFiles = readdirSync(directory).sort();
 
-		const fullPath = join(directory, file);
-		// 1) Generate the original "relative path"
-		const relativePath = join(dir, file).replace(/\\/g, '/');
+  sortedFiles.forEach((file) => {
+    const fullPath = path.join(directory, file);
 
-		// 2) Prepend a slash so patterns like "/css/*.js" will match "/css/some.js"
-		const pathForIgnore = '/' + relativePath.replace(/^\/*/, '');
+    // ✅ if dir is absolute, store relative to the scan root (directory)
+    //    otherwise keep original behavior (join(dir, file))
+    const relativePath = (
+      isAbsDir ? path.relative(dir, fullPath) : path.join(dir, file)
+    ).replace(/\\/g, "/");
 
-		// 3) Check with the leading slash path
-		if (shouldIgnore(pathForIgnore, ignore)) {
+    const pathForIgnore = "/" + relativePath.replace(/^\/*/, "");
+    if (shouldIgnore(pathForIgnore, ignore)) return;
 
-			return;
-		
-		}
+    if (statSync(fullPath).isDirectory()) {
+      getAllFiles(base, {
+        // ✅ if absolute, recurse using absolute path; else keep old join(dir, file)
+        dir: isAbsDir ? fullPath : path.join(dir, file),
+        files,
+        ignore,
+        fileTypes,
+      });
+    } else {
+      if (fileTypes.length > 0 && !fileTypes.some((ext) => file.endsWith(ext))) {
+        return;
+      }
+      files.push(relativePath);
+    }
+  });
 
-		// Recurse if it's a directory
-		if (statSync(fullPath).isDirectory()) {
-
-			getAllFiles(base, {
-				dir: join(dir, file),
-				files,
-				ignore,
-				fileTypes
-			});
-		
-		} else {
-
-			// Filter by file types if specified
-			if (fileTypes.length > 0 && !fileTypes.some((ext) => file.endsWith(ext))) {
-
-				return;
-			
-			}
-
-			// 4) Store the original relative path (without leading slash) in `files` if you prefer
-			files.push(relativePath);
-		
-		}
-	
-	});
-
-	return files;
-
+  return files;
 }
