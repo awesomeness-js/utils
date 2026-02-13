@@ -1,22 +1,33 @@
 export default [
-	// Here is where we fix "padding-line-between-statements"
 	{
 		rules: {
+			// Ignore ALL line-break rules around import statements ONLY
 			'padding-line-between-statements': [
 				'error',
-				// Insert a blank line **before** any block-like statement
+
+				// imports are exempt
+				{
+					blankLine: 'any',
+					prev: 'import',
+					next: '*' 
+				},
+				{
+					blankLine: 'any',
+					prev: '*',
+					next: 'import' 
+				},
+
+				// everything else still padded like before
 				{
 					blankLine: 'always',
 					prev: '*',
 					next: 'block-like' 
 				},
-				// Insert a blank line **after** any block-like statement
 				{
 					blankLine: 'always',
 					prev: 'block-like',
 					next: '*' 
 				},
-				// Keep the rest of your rules here as needed...
 				{
 					blankLine: 'always',
 					prev: '*',
@@ -33,6 +44,9 @@ export default [
 					next: 'throw' 
 				}
 			],
+
+			// ✅ This enforces ONE blank line at top + bottom of function bodies
+			// (and other normal blocks), matching your "inside curly braces" requirement.
 			'padded-blocks': [
 				'error',
 				{
@@ -42,24 +56,28 @@ export default [
 				}
 			],
 
-			"object-curly-newline": [
-				"error",
+			// Keep brace-newline rules, BUT disable them for imports only
+			'object-curly-newline': [
+				'error',
 				{
 					ObjectExpression: {
-						minProperties: 2,     // If object has 2+ props, break into multiple lines
-						multiline: true,
-						consistent: true
-					},
-					// You can also configure ImportDeclaration, ExportDeclaration, etc.
-					ObjectPattern: {
-						multiline: true,
 						minProperties: 2,
+						multiline: true,
 						consistent: true
 					},
-					ImportDeclaration: {
+					ObjectPattern: {
+						minProperties: 2,
 						multiline: true,
-						minProperties: 2
+						consistent: true
 					},
+
+					// imports ignore curly newline formatting
+					ImportDeclaration: {
+						multiline: false,
+						minProperties: 99999,
+						consistent: false
+					},
+
 					ExportDeclaration: {
 						multiline: true,
 						minProperties: 2
@@ -67,19 +85,12 @@ export default [
 				}
 			],
 
-			// 2) If the object is multiline, put each property on its own line
-			"object-property-newline": [
-				"error",
-				{
-					allowAllPropertiesOnSameLine: false
-				}
-			],
-
-			indent: [ "error", "tab", { "SwitchCase": 1 } ],
-			semi: [ "error", "always" ],
-			"arrow-parens": [ "error", "always" ],
-			"object-curly-spacing": [ "error", "always" ],
-			"array-bracket-spacing": [ "error", "always" ],
+			'object-property-newline': [ 'error', { allowAllPropertiesOnSameLine: false } ],
+			indent: [ 'error', 'tab', { SwitchCase: 1 } ],
+			semi: [ 'error', 'always' ],
+			'arrow-parens': [ 'error', 'always' ],
+			'object-curly-spacing': [ 'error', 'always' ],
+			'array-bracket-spacing': [ 'error', 'always' ],
 			'lines-between-class-members': [ 'error', 'always' ],
 			'newline-after-var': [ 'error', 'always' ],
 			'newline-before-return': 'error',
