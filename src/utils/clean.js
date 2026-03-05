@@ -257,10 +257,14 @@ function cleanObject(obj, schema, {
 
 	if(origLength !== keysPassed.length){
 
+		const extraKeys = Object.keys(obj).filter((key) => !keysSchema.includes(key));
+
 		throw {
 			name: 'KeyError',
 			message: 'Object contains keys not in schema',
-			keysPassed,
+			keysPassed: Object.keys(obj),
+			extraKeys,
+			filteredKeys: keysPassed,
 			keysSchema,
 			obj
 		};
