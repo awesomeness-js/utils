@@ -134,6 +134,41 @@ const schemaForArrayOfObjects = {
 	}
 };
 
+const versesArray = [
+	{
+		book: 'GEN',
+		chapter: 1,
+		verse: 1,
+	},
+	{
+		book: 'PSA',
+		chapter: 23,
+		verse: 4,
+	}
+];
+
+const versesSchema = {
+	type: 'array',
+	required: true,
+	items: {
+		type: 'object',
+		properties: {
+			book: {
+				type: 'string',
+				required: true
+			},
+			chapter: {
+				type: 'integer',
+				required: true
+			},
+			verse: {
+				type: 'integer',
+				required: true
+			}
+		}
+	}
+};
+
 test('testStringArray', () => {
 
 	const x = utils.clean.array(testStringArray, schemaForStrings);
@@ -196,5 +231,13 @@ test('schemaForArrayOfObjects', () => {
 	const x = utils.clean.array(arrayOfObjects, schemaForArrayOfObjects);
 
 	expect(x).toStrictEqual(arrayOfObjects);   
+
+});
+
+test('verses array of objects schema', () => {
+
+	const x = utils.clean.array(versesArray, versesSchema);
+
+	expect(x).toStrictEqual(versesArray);
 
 });

@@ -132,7 +132,7 @@ function cleanArray(arr, schema = {}, {
 
 				if(supposedToBeType === 'object'){
 	
-					cleanedItem = cleanObject(item, schema.properties, {
+					cleanedItem = cleanObject(item, schema.items, {
 						testMode,
 						allOrNothing,
 						path: path ? `${path}.${key}` : key
