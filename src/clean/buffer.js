@@ -82,6 +82,7 @@ export default function cleanBuffer(fileObj, {
 			name: filename || null,
 			type: mimeType,
 			size,
+			buffer,
 			encoding: fileObj.encoding || null,
 			createdAt: new Date().toISOString(),
 		};

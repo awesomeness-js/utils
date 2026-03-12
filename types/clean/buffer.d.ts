@@ -7,6 +7,7 @@ export default function cleanBuffer(fileObj: any, { required, validTypes, minSiz
     name: any;
     type: any;
     size: number;
+    buffer: any;
     encoding: any;
     createdAt: string;
 };
