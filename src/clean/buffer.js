@@ -21,8 +21,12 @@ export default function cleanBuffer(fileObj, {
 		}
 
 		const {
-			buffer, filename, mimeType, totalSize 
+			buffer, 
+			filename, 
+			mimeType, 
+			totalSize 
 		} = fileObj;
+        
 		const size = totalSize ?? buffer.length;
 
 		// basic fields check
