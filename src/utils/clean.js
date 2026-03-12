@@ -165,6 +165,18 @@ function cleanArray(arr, schema = {}, {
 					
 					} else {
 
+
+						if(schema.requiredIfPresent === true){
+
+							throw {
+								message: 'requiredIfPresent item is null',
+								item,
+								key
+							};
+
+						}
+
+
 						return; // skip this item if it's not required and is null
 					
 					}
@@ -406,6 +418,22 @@ function cleanObject(obj, schema, {
 		if(supposedToBeType === 'buffer'){
 
 			cleanedValue = cleanBuffer(value, schema.properties[key]);
+
+		}
+
+
+		if(
+			schema.properties[key].required === false
+            &&  schema.properties[key].requiredIfPresent === true
+            && cleanedValue === null
+		){
+
+			throw {
+				message: 'value invalid',
+				value,
+				key,
+				requirements: schema.properties[key],
+			};
 
 		}
 
