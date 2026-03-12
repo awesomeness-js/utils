@@ -26,6 +26,15 @@ import type _isUUID from './isUUID';
 import type _md5 from './md5';
 import type _password_check from './password/check';
 import type _password_hash from './password/hash';
+import type _random_array from './random/array';
+import type _random_arrayValue from './random/arrayValue';
+import type _random_boolean from './random/boolean';
+import type _random_integer from './random/integer';
+import type _random_number from './random/number';
+import type _random_object from './random/object';
+import type _random_string from './random/string';
+import type _random_timestamp from './random/timestamp';
+import type _random_uuid from './random/uuid';
 import type _setLocalEnvs from './setLocalEnvs';
 import type _shouldIgnore from './shouldIgnore';
 import type _thingType from './thingType';
@@ -79,6 +88,18 @@ export declare const clean: {
 export declare const password: {
 	check: typeof _password_check;
 	hash: typeof _password_hash;
+};
+
+export declare const random: {
+	array: typeof _random_array;
+	arrayValue: typeof _random_arrayValue;
+	boolean: typeof _random_boolean;
+	integer: typeof _random_integer;
+	number: typeof _random_number;
+	object: typeof _random_object;
+	string: typeof _random_string;
+	timestamp: typeof _random_timestamp;
+	uuid: typeof _random_uuid;
 };
 
 export declare const utils: {
@@ -157,6 +178,17 @@ declare const _default: {
 	password: {
 		check: typeof _password_check,
 		hash: typeof _password_hash,
+	},
+	random: {
+		array: typeof _random_array,
+		arrayValue: typeof _random_arrayValue,
+		boolean: typeof _random_boolean,
+		integer: typeof _random_integer,
+		number: typeof _random_number,
+		object: typeof _random_object,
+		string: typeof _random_string,
+		timestamp: typeof _random_timestamp,
+		uuid: typeof _random_uuid,
 	},
 	utils: {
 		buildExportsTree: typeof _utils_buildExportsTree,

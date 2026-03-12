@@ -9,6 +9,7 @@ import cleanString from '../clean/string.js';
 import cleanTimestamp from '../clean/timestamp.js';
 import cleanUUID from '../clean/uuid.js';
 import cleanCustom from '../clean/custom.js';
+import cleanBuffer from '../clean/buffer.js';
 
 const knownTypesToClean = [
 	'array',
@@ -143,6 +144,12 @@ function cleanArray(arr, schema = {}, {
 				if(supposedToBeType === 'custom'){
 	
 					cleanedItem = cleanCustom(item, schema.items);
+
+				}
+
+				if(supposedToBeType === 'buffer'){
+	
+					cleanedItem = cleanBuffer(item, schema.items);
 
 				}
 
@@ -387,6 +394,21 @@ function cleanObject(obj, schema, {
 			cleanedValue = cleanArray(value, schema.properties[key]); 
 		
 		}
+
+
+		if(supposedToBeType === 'custom'){
+
+			cleanedValue = cleanCustom(value, schema.properties[key]);
+
+		}
+        
+
+		if(supposedToBeType === 'buffer'){
+
+			cleanedValue = cleanBuffer(value, schema.properties[key]);
+
+		}
+
 
 		cleanObj[key] = cleanedValue;
 
