@@ -7,6 +7,7 @@ import generateNamedExports from './generateNamedExports.js';
 
 export default function generateFile({
 	src, 
+	dest,
 	exportRoots, 
 	ignore, 
 	includeComments, 
@@ -32,7 +33,8 @@ export default function generateFile({
 	const importStatements = generateImportStatements({
 		fileDataList,
 		dts,
-		src
+		src,
+		dest
 	});
 
 	const flatExportLines = generateFlatExportLines({

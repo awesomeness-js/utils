@@ -25,6 +25,7 @@ async function build({
 
 	const gen = () => generateFile({
 		src,
+		dest,
 		exportRoots,
 		ignore,
 		includeComments,
