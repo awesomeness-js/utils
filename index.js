@@ -17,6 +17,7 @@ import _clean_uuid from './src/clean/uuid.js';
 import _collectImports from './src/collectImports.js';
 import _combineFiles from './src/combineFiles.js';
 import _convertBytes from './src/convertBytes.js';
+import _createFromSchema from './src/createFromSchema.js';
 import _decrypt from './src/decrypt.js';
 import _each from './src/each.js';
 import _eachAsync from './src/eachAsync.js';
@@ -57,6 +58,7 @@ export { _build as build };
 export { _collectImports as collectImports };
 export { _combineFiles as combineFiles };
 export { _convertBytes as convertBytes };
+export { _createFromSchema as createFromSchema };
 export { _decrypt as decrypt };
 export { _each as each };
 export { _eachAsync as eachAsync };
@@ -132,6 +134,7 @@ export default {
 	build: _build,
 	collectImports: _collectImports,
 	combineFiles: _combineFiles,
+	createFromSchema: _createFromSchema,
 	/**
 	 * Converts a given number of bytes into a more readable string format with appropriate units.
 	 *

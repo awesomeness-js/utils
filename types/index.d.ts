@@ -17,6 +17,7 @@ import type _clean_uuid from './clean/uuid';
 import type _collectImports from './collectImports';
 import type _combineFiles from './combineFiles';
 import type _convertBytes from './convertBytes';
+import type _createFromSchema from './createFromSchema';
 import type _decrypt from './decrypt';
 import type _each from './each';
 import type _eachAsync from './eachAsync';
@@ -57,6 +58,7 @@ export declare const build: typeof _build;
 export declare const collectImports: typeof _collectImports;
 export declare const combineFiles: typeof _combineFiles;
 export declare const convertBytes: typeof _convertBytes;
+export declare const createFromSchema: typeof _createFromSchema;
 export declare const decrypt: typeof _decrypt;
 export declare const each: typeof _each;
 export declare const eachAsync: typeof _eachAsync;
@@ -132,6 +134,7 @@ declare const _default: {
 	build: typeof _build;
 	collectImports: typeof _collectImports;
 	combineFiles: typeof _combineFiles;
+	createFromSchema: typeof _createFromSchema;
 	/**
 	 * Converts a given number of bytes into a more readable string format with appropriate units.
 	 *
