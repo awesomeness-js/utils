@@ -134,7 +134,6 @@ export default {
 	build: _build,
 	collectImports: _collectImports,
 	combineFiles: _combineFiles,
-	createFromSchema: _createFromSchema,
 	/**
 	 * Converts a given number of bytes into a more readable string format with appropriate units.
 	 *
@@ -143,6 +142,7 @@ export default {
 	 * @returns {string} The converted bytes in a string format with appropriate units.
 	 */
 	convertBytes: _convertBytes,
+	createFromSchema: _createFromSchema,
 	decrypt: _decrypt,
 	/**
 	 * Iterates over elements of an array or properties of an object, invoking a callback for each element/property.
