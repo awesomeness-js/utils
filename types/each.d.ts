@@ -7,4 +7,4 @@
  * @param {Function} callback - The function to invoke per iteration. It is invoked with two arguments: (value, key/index).
  * @returns {void}
  */
-export default function each(objectOrArray: any | any[], callback: Function): void;
+export default function each(objectOrArray: Object | any[], callback: Function): void;

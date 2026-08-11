@@ -1,5 +1,15 @@
 import each from './each.js';
 import validateSchema from './validateSchema.js';
+import cleanBoolean from './clean/boolean.js';
+import cleanInteger from './clean/integer.js';
+import cleanNumber from './clean/number.js';
+import cleanString from './clean/string.js';
+import cleanTimestamp from './clean/timestamp.js';
+import cleanUUID from './clean/uuid.js';
+import cleanCustom from './clean/custom.js';
+import cleanBuffer from './clean/buffer.js';
+import cleanArray from './clean/array.js';
+import cleanObject from './clean/object.js';
 
 function cloneValue(value) {
 
@@ -49,6 +59,72 @@ function resolveDefault(schemaItem) {
 
 }
 
+function cleanOverrideValue(overrideValue, schemaItem) {
+
+	if (schemaItem.type === 'array') {
+
+		return cleanArray(overrideValue, schemaItem);
+
+	}
+
+	if (schemaItem.type === 'object') {
+
+		return cleanObject(overrideValue, schemaItem);
+
+	}
+
+	if (schemaItem.type === 'boolean') {
+
+		return cleanBoolean(overrideValue, schemaItem);
+
+	}
+
+	if (schemaItem.type === 'integer') {
+
+		return cleanInteger(overrideValue, schemaItem);
+
+	}
+
+	if (schemaItem.type === 'number') {
+
+		return cleanNumber(overrideValue, schemaItem);
+
+	}
+
+	if (schemaItem.type === 'string') {
+
+		return cleanString(overrideValue, schemaItem);
+
+	}
+
+	if (schemaItem.type === 'timestamp') {
+
+		return cleanTimestamp(overrideValue, schemaItem);
+
+	}
+
+	if (schemaItem.type === 'uuid') {
+
+		return cleanUUID(overrideValue, schemaItem);
+
+	}
+
+	if (schemaItem.type === 'custom') {
+
+		return cleanCustom(overrideValue, schemaItem);
+
+	}
+
+	if (schemaItem.type === 'buffer') {
+
+		return cleanBuffer(overrideValue, schemaItem);
+
+	}
+
+	return cloneValue(overrideValue);
+
+}
+
 function buildValue(overrideValue, schemaItem) {
 
 	const hasOverride = overrideValue !== undefined;
@@ -64,7 +140,7 @@ function buildValue(overrideValue, schemaItem) {
 			)
 		) {
 
-			return cloneValue(overrideValue);
+			return cleanOverrideValue(overrideValue, schemaItem);
 
 		}
 
@@ -108,7 +184,7 @@ function buildValue(overrideValue, schemaItem) {
 
 		if (hasOverride) {
 
-			return cloneValue(overrideValue);
+			return cleanOverrideValue(overrideValue, schemaItem);
 
 		}
 
@@ -118,7 +194,7 @@ function buildValue(overrideValue, schemaItem) {
 
 	if (hasOverride) {
 
-		return cloneValue(overrideValue);
+		return cleanOverrideValue(overrideValue, schemaItem);
 
 	}
 

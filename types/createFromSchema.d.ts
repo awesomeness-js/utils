@@ -1,2 +1,1 @@
-export default createFromSchema;
-declare function createFromSchema(overrides?: {}, schema?: {}): {};
+export default function createFromSchema(overrides?: {}, schema?: {}): any;

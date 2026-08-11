@@ -2,5 +2,5 @@ export default function generateNamespaceExportLines({ nestedExports, includeCom
     nestedExports: any;
     includeComments: any;
     dts: any;
-    useTabs?: boolean;
+    useTabs?: boolean | undefined;
 }): string;

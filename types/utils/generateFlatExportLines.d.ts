@@ -3,5 +3,5 @@ export default function generateFlatExportLines({ flatExports, exportRoots, incl
     exportRoots: any;
     includeComments: any;
     dts: any;
-    useTabs?: boolean;
+    useTabs?: boolean | undefined;
 }): string;

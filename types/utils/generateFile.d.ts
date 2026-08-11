@@ -5,5 +5,5 @@ export default function generateFile({ src, dest, exportRoots, ignore, includeCo
     ignore: any;
     includeComments: any;
     dts: any;
-    useTabs?: boolean;
+    useTabs?: boolean | undefined;
 }): string;

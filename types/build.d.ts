@@ -1,10 +1,10 @@
 export default build;
 declare function build({ src, dest, exportRoots, ignore, includeComments, dts, useTabs, }?: {
-    src?: string;
-    dest?: string;
-    exportRoots?: boolean;
-    ignore?: any[];
-    includeComments?: boolean;
-    dts?: boolean;
-    useTabs?: boolean;
+    src?: string | undefined;
+    dest?: string | undefined;
+    exportRoots?: boolean | undefined;
+    ignore?: never[] | undefined;
+    includeComments?: boolean | undefined;
+    dts?: boolean | undefined;
+    useTabs?: boolean | undefined;
 }): Promise<boolean>;

@@ -79,6 +79,54 @@ test('createFromSchema should treat undefined overrides as missing values', () =
 
 });
 
+test('createFromSchema should clean override values using schema rules', () => {
+
+	const schema = {
+		type: 'object',
+		properties: {
+			count: {
+				type: 'integer',
+				default: 0
+			},
+			price: {
+				type: 'number',
+				default: 0
+			},
+			createdAt: {
+				type: 'timestamp'
+			},
+			profile: {
+				type: 'object',
+				properties: {
+					age: {
+						type: 'integer',
+						default: 18
+					}
+				}
+			}
+		}
+	};
+
+	const result = utils.createFromSchema({
+		count: '42',
+		price: '19.95',
+		createdAt: '2024-01-01T00:00:00.000Z',
+		profile: {
+			age: '31'
+		}
+	}, schema);
+
+	expect(result).toStrictEqual({
+		count: 42,
+		price: 19.95,
+		createdAt: '2024-01-01T00:00:00.000Z',
+		profile: {
+			age: 31
+		}
+	});
+
+});
+
 test('createFromSchema should throw for non-object schema', () => {
 
 	const badSchema = {

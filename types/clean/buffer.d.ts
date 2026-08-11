@@ -1,8 +1,8 @@
 export default function cleanBuffer(fileObj: any, { required, validTypes, minSize, maxSize, }?: {
-    required?: boolean;
-    validTypes?: any[];
-    minSize?: boolean;
-    maxSize?: boolean;
+    required?: boolean | undefined;
+    validTypes?: never[] | undefined;
+    minSize?: boolean | undefined;
+    maxSize?: boolean | undefined;
 }): {
     name: any;
     type: any;
@@ -10,4 +10,4 @@ export default function cleanBuffer(fileObj: any, { required, validTypes, minSiz
     buffer: any;
     encoding: any;
     createdAt: string;
-};
+} | null;

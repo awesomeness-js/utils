@@ -3,5 +3,5 @@ export default function generateNamespaceCode({ nsObj, indentLevel, includeComme
     indentLevel: any;
     includeComments: any;
     dts: any;
-    useTabs?: boolean;
+    useTabs?: boolean | undefined;
 }): string;

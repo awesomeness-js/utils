@@ -4,7 +4,7 @@ declare function randomArray({ items, min, max }?: {
         type: string;
         minLength: number;
         maxLength: number;
-    };
-    min?: number;
-    max?: number;
+    } | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
 }): any[];

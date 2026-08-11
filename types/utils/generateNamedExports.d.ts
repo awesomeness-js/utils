@@ -3,5 +3,5 @@ export default function generateNamedExports({ flatExports, exportRoots, nestedE
     exportRoots: any;
     nestedExports: any;
     dts: any;
-    useTabs?: boolean;
+    useTabs?: boolean | undefined;
 }): string;

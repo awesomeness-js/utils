@@ -1,6 +1,6 @@
 {
     "name": "@awesomeness-js/utils",
-    "version": "1.2.15",
+    "version": "1.2.16",
     "description": "Awesomeness - Utils",
     "repository": {
         "type": "git",
@@ -8,7 +8,7 @@
     },
     "scripts": {
         "prebuild": "node ./build/build.js",
-        "build": "tsc && npm run postBuild",
+        "build": "node ./build/cleanTypes.js && tsc && npm run postBuild",
         "postBuild": "node ./build/postBuild.js",
         "test": "vitest"
     },

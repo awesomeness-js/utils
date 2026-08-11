@@ -3,8 +3,10 @@
 		"declaration": true, // Generates .d.ts files
 		"emitDeclarationOnly": true, // Only output .d.ts files
 		"allowJs": true, // Allows JS files
+		"rootDir": "src",
 		"outDir": "types", // Output directory for type files
-		"moduleResolution": "node",
+		"module": "Node16",
+		"moduleResolution": "node16",
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"types": [

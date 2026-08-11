@@ -1,3 +1,3 @@
 export default function cleanBoolean(x: any, { required }?: {
-    required?: boolean;
+    required?: boolean | undefined;
 }): any;

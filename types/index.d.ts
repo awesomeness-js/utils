@@ -134,7 +134,6 @@ declare const _default: {
 	build: typeof _build;
 	collectImports: typeof _collectImports;
 	combineFiles: typeof _combineFiles;
-	createFromSchema: typeof _createFromSchema;
 	/**
 	 * Converts a given number of bytes into a more readable string format with appropriate units.
 	 *
@@ -143,6 +142,7 @@ declare const _default: {
 	 * @returns {string} The converted bytes in a string format with appropriate units.
 	 */
 	convertBytes: typeof _convertBytes;
+	createFromSchema: typeof _createFromSchema;
 	decrypt: typeof _decrypt;
 	/**
 	 * Iterates over elements of an array or properties of an object, invoking a callback for each element/property.
