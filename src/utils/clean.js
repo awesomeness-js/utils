@@ -56,7 +56,7 @@ function cleanArray(arr, schema = {}, {
 
 				const itemType = thingType(item);
     
-				if(itemType !== supposedToBeType){
+				if(itemType !== supposedToBeType && !(itemType === 'integer' && supposedToBeType === 'number')){
 		
 					throw {
 						message: 'type invalid',
@@ -325,7 +325,7 @@ function cleanObject(obj, schema, {
 			
 		}
 
-		if(valType !== supposedToBeType){
+		if(valType !== supposedToBeType && !(valType === 'integer' && supposedToBeType === 'number')){
 
 			if(schemaItemProperties.required){
 	

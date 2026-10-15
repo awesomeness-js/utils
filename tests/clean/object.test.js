@@ -176,6 +176,21 @@ test('testObject', () => {
 
 });
 
+test('integer property as number', () => {
+	const input = { value: 42 };
+	const numberSchema = {
+		type: 'object',
+		properties: {
+			value: {
+				type: 'number',
+				required: true
+			}
+		}
+	};
+
+	expect(utils.clean.object(input, numberSchema)).toStrictEqual(input);
+});
+
 test('invalidTestObject', () => {
 
 	try {

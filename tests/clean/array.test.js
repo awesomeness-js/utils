@@ -185,6 +185,17 @@ test('testIntegerArray', () => {
 
 });
 
+test('testIntegerArray as numbers', () => {
+
+	const x = utils.clean.array(testIntegerArray, {
+		type: 'array',
+		items: { type: 'number' }
+	});
+
+	expect(x).toStrictEqual(testIntegerArray);
+
+});
+
 test('testBooleanArray', () => {
 
 	const x = utils.clean.array(testBooleanArray, schemaForBooleans);
