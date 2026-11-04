@@ -140,3 +140,32 @@ test('createFromSchema should throw for non-object schema', () => {
 	}).toThrow();
 
 });
+
+test('createFromSchema free-form object field (properties missing/null/{}) uses default or passes value through', () => {
+
+	for (const properties of [undefined, null, {}]) {
+
+		const schema = {
+			type: 'object',
+			properties: {
+				name: { type: 'string', default: 'job' },
+				meta: { type: 'object', properties, default: { a: 1 } },
+				extra: { type: 'object', properties }
+			}
+		};
+
+		expect(utils.createFromSchema({}, schema)).toStrictEqual({ name: 'job', meta: { a: 1 } });
+
+		const meta = { anything: 'goes', nested: { deep: [1, 2] } };
+
+		expect(utils.createFromSchema({ meta }, schema)).toStrictEqual({ name: 'job', meta });
+
+	}
+
+});
+
+test('random.object handles null properties', () => {
+
+	expect(utils.random.object({ properties: null })).toStrictEqual({});
+
+});

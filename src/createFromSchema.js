@@ -144,6 +144,13 @@ function buildValue(overrideValue, schemaItem) {
 
 		}
 
+		// no properties (or empty) = free-form, use value as-is or default
+		if (!schemaItem.properties || Object.keys(schemaItem.properties).length === 0) {
+
+			return hasOverride ? cleanOverrideValue(overrideValue, schemaItem) : resolveDefault(schemaItem);
+
+		}
+
 		const safeOverride = hasOverride ? overrideValue : {};
 		const result = {};
 

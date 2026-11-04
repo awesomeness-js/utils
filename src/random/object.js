@@ -26,7 +26,7 @@ function randomObject({
 		uuid: randomUUID
 	};
 
-	each(properties, (value, key) => {
+	each(properties || {}, (value, key) => {
 
 		if(typeof randomTypes[value.type] !== 'function') {
 
