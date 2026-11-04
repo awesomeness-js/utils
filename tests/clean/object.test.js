@@ -255,3 +255,36 @@ test('object of arrays test', () => {
 	}
 
 });
+test('free-form object: properties missing allows any keys', () => {
+	const obj = { a: 1, b: { c: 'x' } };
+	expect(utils.clean.object(obj, { type: 'object' })).toStrictEqual(obj);
+});
+
+test('free-form object: properties {} allows any keys', () => {
+	const obj = { a: 1, anything: [1, 2] };
+	expect(utils.clean.object(obj, { type: 'object', properties: {} })).toStrictEqual(obj);
+});
+
+test('free-form object: non-object value still throws', () => {
+	expect(() => utils.clean.object('nope', { type: 'object' })).toThrow();
+	expect(() => utils.clean.object(null, { type: 'object', properties: {} })).toThrow();
+});
+
+test('object with properties still rejects extra keys', () => {
+	expect(() => utils.clean.object({ a: 'x', extra: 1 }, {
+		type: 'object',
+		properties: { a: { type: 'string' } }
+	})).toThrow();
+});
+
+test('nested free-form object field passes any keys', () => {
+	const obj = { name: 'x', meta: { foo: 1, bar: 'baz' } };
+	const result = utils.clean.object(obj, {
+		type: 'object',
+		properties: {
+			name: { type: 'string', required: true },
+			meta: { type: 'object', properties: {}, required: true }
+		}
+	});
+	expect(result).toStrictEqual(obj);
+});

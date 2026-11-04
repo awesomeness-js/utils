@@ -10,15 +10,15 @@ declare namespace _default {
 }
 export default _default;
 declare function cleanArray(arr: any, schema?: {}, { testMode, allOrNothing, path }?: {
-    testMode?: boolean | undefined;
-    allOrNothing?: boolean | undefined;
-    path?: string | undefined;
-}): any[] | null;
+    testMode?: boolean;
+    allOrNothing?: boolean;
+    path?: string;
+}): any[];
 declare function cleanObject(obj: any, schema: any, { testMode, allOrNothing, path }?: {
-    testMode?: boolean | undefined;
-    allOrNothing?: boolean | undefined;
-    path?: string | undefined;
-}): {};
+    testMode?: boolean;
+    allOrNothing?: boolean;
+    path?: string;
+}): any;
 import cleanBoolean from '../clean/boolean.js';
 import cleanInteger from '../clean/integer.js';
 import cleanNumber from '../clean/number.js';
