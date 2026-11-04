@@ -1,7 +1,5 @@
 // main-module/index.js
-import {
-	readdirSync, statSync, readFileSync 
-} from 'fs';
+import { readdirSync, statSync, readFileSync } from 'fs';
 
 function combineFiles(dir, fileType, {
 	minify = false,

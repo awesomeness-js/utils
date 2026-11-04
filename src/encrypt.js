@@ -1,6 +1,4 @@
-import {
-	randomBytes, createCipheriv 
-} from 'crypto';
+import { randomBytes, createCipheriv } from 'crypto';
 
 
 // Encrypt plaintext using AES-256-GCM

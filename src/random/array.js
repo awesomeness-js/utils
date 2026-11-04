@@ -27,7 +27,7 @@ function randomArray({
 		string: randomString,
 		timestamp: randomTimestamp,
 		uuid: randomUUID
-	}
+	};
 
 	const array = [];
 
@@ -41,6 +41,8 @@ function randomArray({
 
 	return array;
 
-};
+}
+
+;
 
 export default randomArray;

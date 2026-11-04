@@ -15,28 +15,32 @@ function randomObject({
 	const result = {};
 
 	const randomTypes = {
-			array: randomArray,
-			arrayValue: randomArrayValue,
-			boolean: randomBoolean,
-			integer: randomInteger,
-			number: randomNumber,
-			object: randomObject,
-			string: randomString,
-			timestamp: randomTimestamp,
-			uuid: randomUUID
-		}
+		array: randomArray,
+		arrayValue: randomArrayValue,
+		boolean: randomBoolean,
+		integer: randomInteger,
+		number: randomNumber,
+		object: randomObject,
+		string: randomString,
+		timestamp: randomTimestamp,
+		uuid: randomUUID
+	};
 
 	each(properties, (value, key) => {
 
 		if(typeof randomTypes[value.type] !== 'function') {
 
 			if(typeof value.random === 'function') {
+
 				result[key] = value.random();
+			
 			} else if(
 				value.default !== undefined 
 				&& value.default !== null
 			) {
+
 				result[key] = value.default;
+			
 			} else {
 				
 				result[key] = null;
@@ -53,7 +57,9 @@ function randomObject({
 
 	return result;
 
-};
+}
+
+;
 
 
 export default randomObject;

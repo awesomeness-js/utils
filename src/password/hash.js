@@ -1,6 +1,4 @@
-import {
-	randomBytes, pbkdf2Sync 
-} from 'crypto';
+import { randomBytes, pbkdf2Sync } from 'crypto';
 
 // Hash a password using Node.js built-in crypto (no external deps).
 export default function hashPassword(password) {
