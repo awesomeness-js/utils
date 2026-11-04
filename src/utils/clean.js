@@ -267,6 +267,13 @@ function cleanObject(obj, schema, {
 	
 	}
 
+	// no properties (or empty) = free-form, allow anything
+	if(!schema.properties || Object.keys(schema.properties).length === 0){
+
+		return obj;
+
+	}
+
 	let keysPassed = Object.keys(obj);
 	let keysSchema = Object.keys(schema.properties);
 

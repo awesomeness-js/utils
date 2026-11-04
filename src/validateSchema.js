@@ -72,13 +72,6 @@ function validateSchema(schema){
 			
 			});
 			
-		} else {
-
-			throw {
-				message: 'Object invalid - needs "properties"',
-				schema
-			};
-
 		}
 
 	}
