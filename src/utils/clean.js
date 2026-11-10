@@ -403,14 +403,30 @@ function cleanObject(obj, schema, {
 		}
 
 		if(supposedToBeType === 'object'){
- 
-			cleanedValue = cleanObject(value, schema.properties[key]); 
+
+			if(value === null){
+
+				cleanedValue = null;
+
+			} else {
+
+				cleanedValue = cleanObject(value, schema.properties[key]);
+
+			}
 		
 		}
 
 		if(supposedToBeType === 'array'){
- 
-			cleanedValue = cleanArray(value, schema.properties[key]); 
+
+			if(value === null){
+
+				cleanedValue = null;
+
+			} else {
+
+				cleanedValue = cleanArray(value, schema.properties[key]);
+
+			}
 		
 		}
 

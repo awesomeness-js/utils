@@ -288,3 +288,150 @@ test('nested free-form object field passes any keys', () => {
 	});
 	expect(result).toStrictEqual(obj);
 });
+
+test('optional nested object null is kept', () => {
+
+	const result = utils.clean.object({
+		meta: null
+	}, {
+		type: 'object',
+		properties: {
+			meta: {
+				type: 'object',
+				properties: {
+					name: {
+						type: 'string',
+						required: true
+					}
+				}
+			}
+		}
+	});
+
+	expect(result).toStrictEqual({ meta: null });
+
+});
+
+test('optional nested object null is kept when required is false', () => {
+
+	const result = utils.clean.object({
+		meta: null
+	}, {
+		type: 'object',
+		properties: {
+			meta: {
+				type: 'object',
+				required: false,
+				properties: {
+					name: {
+						type: 'string',
+						required: true
+					}
+				}
+			}
+		}
+	});
+
+	expect(result).toStrictEqual({ meta: null });
+
+});
+
+test('optional nested array null is kept', () => {
+
+	const result = utils.clean.object({
+		tags: null
+	}, {
+		type: 'object',
+		properties: {
+			tags: {
+				type: 'array',
+				required: false,
+				items: { type: 'string' }
+			}
+		}
+	});
+
+	expect(result).toStrictEqual({ tags: null });
+
+});
+
+test('required nested object null throws', () => {
+
+	expect(() => utils.clean.object({
+		meta: null
+	}, {
+		type: 'object',
+		properties: {
+			meta: {
+				type: 'object',
+				required: true,
+				properties: {
+					name: {
+						type: 'string',
+						required: true
+					}
+				}
+			}
+		}
+	})).toThrow('type invalid');
+
+});
+
+test('requiredIfPresent nested object null throws', () => {
+
+	expect(() => utils.clean.object({
+		meta: null
+	}, {
+		type: 'object',
+		properties: {
+			meta: {
+				type: 'object',
+				required: false,
+				requiredIfPresent: true,
+				properties: {
+					name: {
+						type: 'string',
+						required: true
+					}
+				}
+			}
+		}
+	})).toThrow('value invalid');
+
+});
+
+test('non-null nested object is still cleaned', () => {
+
+	const result = utils.clean.object({
+		meta: {
+			name: 'ok',
+			note: 123
+		}
+	}, {
+		type: 'object',
+		properties: {
+			meta: {
+				type: 'object',
+				required: true,
+				properties: {
+					name: {
+						type: 'string',
+						required: true
+					},
+					note: {
+						type: 'string',
+						required: false
+					}
+				}
+			}
+		}
+	});
+
+	expect(result).toStrictEqual({
+		meta: {
+			name: 'ok',
+			note: null
+		}
+	});
+
+});
