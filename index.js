@@ -43,6 +43,8 @@ import _toPennies from './src/toPennies.js';
 import _utils_buildExportsTree from './src/utils/buildExportsTree.js';
 import _utils_buildFileDataList from './src/utils/buildFileDataList.js';
 import _utils_clean from './src/utils/clean.js';
+import _utils_combineNamespacedDir from './src/utils/combineNamespacedDir.js';
+import _utils_exportToAssign from './src/utils/exportToAssign.js';
 import _utils_extractJSDocComment from './src/utils/extractJSDocComment.js';
 import _utils_generateFile from './src/utils/generateFile.js';
 import _utils_generateFlatExportLines from './src/utils/generateFlatExportLines.js';
@@ -50,6 +52,10 @@ import _utils_generateImportStatements from './src/utils/generateImportStatement
 import _utils_generateNamedExports from './src/utils/generateNamedExports.js';
 import _utils_generateNamespaceCode from './src/utils/generateNamespaceCode.js';
 import _utils_generateNamespaceExportLines from './src/utils/generateNamespaceExportLines.js';
+import _utils_namespaceFile from './src/utils/namespaceFile.js';
+import _utils_namespaceInits from './src/utils/namespaceInits.js';
+import _utils_namespaceName from './src/utils/namespaceName.js';
+import _utils_stripImports from './src/utils/stripImports.js';
 import _uuid from './src/uuid.js';
 import _validateSchema from './src/validateSchema.js';
 import _wait from './src/wait.js';
@@ -108,13 +114,19 @@ export const utils = {
 	buildExportsTree: _utils_buildExportsTree,
 	buildFileDataList: _utils_buildFileDataList,
 	clean: _utils_clean,
+	combineNamespacedDir: _utils_combineNamespacedDir,
+	exportToAssign: _utils_exportToAssign,
 	extractJSDocComment: _utils_extractJSDocComment,
 	generateFile: _utils_generateFile,
 	generateFlatExportLines: _utils_generateFlatExportLines,
 	generateImportStatements: _utils_generateImportStatements,
 	generateNamedExports: _utils_generateNamedExports,
 	generateNamespaceCode: _utils_generateNamespaceCode,
-	generateNamespaceExportLines: _utils_generateNamespaceExportLines
+	generateNamespaceExportLines: _utils_generateNamespaceExportLines,
+	namespaceFile: _utils_namespaceFile,
+	namespaceInits: _utils_namespaceInits,
+	namespaceName: _utils_namespaceName,
+	stripImports: _utils_stripImports
 };
 
 
@@ -133,6 +145,13 @@ export default {
 	 */
 	build: _build,
 	collectImports: _collectImports,
+	/**
+	 * Combines every file of one type in a folder (recursively, sorted) into one string.
+	 * With namespace, each file's `export default` is assigned to a name from its path:
+	 * combineFiles(dir, 'js', { namespace: 'app' }) turns state/create.js into app.state.create = function…
+	 * Namespace defaults: indexIsParent, parentInits, and stripImports are all true.
+	 * processContent({ content, path, name }) runs after the namespace rewrite.
+	 */
 	combineFiles: _combineFiles,
 	/**
 	 * Converts a given number of bytes into a more readable string format with appropriate units.
@@ -197,6 +216,29 @@ export default {
 		buildExportsTree: _utils_buildExportsTree,
 		buildFileDataList: _utils_buildFileDataList,
 		clean: _utils_clean,
+		/**
+		 * Combines a folder for combineFiles({ namespace }): each file's default export
+		 * is assigned to a name built from its path and file name.
+		 * The index file comes first in each folder so a parent function exists before its children.
+		 *
+		 * @param {string} dir - The folder to combine.
+		 * @param {string} namespace - The namespace for this folder.
+		 * @param {Object} options - fileType, indexIsParent, parentInits, stripImports, processContent.
+		 * @returns {string} The combined content.
+		 */
+		combineNamespacedDir: _utils_combineNamespacedDir,
+		/**
+		 * Turns the first line-anchored `export default` into an assignment to name.
+		 * Covers functions, async functions, arrows, and objects with one replace.
+		 * `export default` in the middle of a line (comments, strings) is left alone.
+		 *
+		 * @example exportToAssign({ content: 'export default function(){}', name: 'app.state.get' }); // 'app.state.get = function(){}'
+		 * @param {Object} options
+		 * @param {string} options.content - The file content.
+		 * @param {string} options.name - The name to assign, such as 'app.state.get'.
+		 * @returns {string} The content with the default export assigned to name.
+		 */
+		exportToAssign: _utils_exportToAssign,
 		extractJSDocComment: _utils_extractJSDocComment,
 		generateFile: _utils_generateFile,
 		generateFlatExportLines: _utils_generateFlatExportLines,
@@ -204,5 +246,54 @@ export default {
 		generateNamedExports: _utils_generateNamedExports,
 		generateNamespaceCode: _utils_generateNamespaceCode,
 		generateNamespaceExportLines: _utils_generateNamespaceExportLines,
+		/**
+		 * Reads one file for combineFiles({ namespace }) and assigns its default export to name.
+		 * Order: strip imports (if enabled), assign the default export, then run processContent.
+		 *
+		 * @param {Object} options
+		 * @param {string} options.path - The file path.
+		 * @param {string} options.name - The namespace name, such as 'app.state.create'.
+		 * @param {Object} options.options - The combineFiles namespace options.
+		 * @returns {string} The file content ready to concatenate.
+		 */
+		namespaceFile: _utils_namespaceFile,
+		/**
+		 * Builds the `x = x || {};` lines that make sure each parent object exists.
+		 * The first segment (the global, such as app or ui) is never assigned.
+		 * Only prefixes longer than base are included, so a nested folder adds just its own line.
+		 *
+		 * @example namespaceInits({ name: 'app.pages.start' }); // 'app.pages = app.pages || {};\napp.pages.start = app.pages.start || {};\n'
+		 * @example namespaceInits({ name: 'ui.button.list', base: 'ui.button' }); // 'ui.button.list = ui.button.list || {};\n'
+		 * @param {Object} options
+		 * @param {string} options.name - The full namespace name.
+		 * @param {string} [options.base=''] - A namespace that already exists.
+		 * @returns {string} One init line per missing parent, or an empty string.
+		 */
+		namespaceInits: _utils_namespaceInits,
+		/**
+		 * Turns a file path into a namespace name, relative to a root folder.
+		 * Accepts Windows, POSIX, and mixed slashes. index files map to their parent by default.
+		 * Segments that are not valid identifiers use bracket notation.
+		 *
+		 * @example namespaceName({ path: 'D:\\core\\js\\app/state/create.js', root: 'D:/core/js/app', namespace: 'app' }); // 'app.state.create'
+		 * @example namespaceName({ path: 'components/button/index.js', root: 'components', namespace: 'ui' }); // 'ui.button'
+		 * @param {Object} options
+		 * @param {string} options.path - The file (or folder) path.
+		 * @param {string} [options.root=''] - The folder the namespace starts at.
+		 * @param {string} options.namespace - The namespace for the root folder, such as 'app' or 'ui'.
+		 * @param {string|null} [options.fileType='js'] - Extension removed from the last segment. null keeps it.
+		 * @param {boolean} [options.indexIsParent=true] - Map index files to their parent namespace.
+		 * @returns {string} The namespace name, such as 'app.state.create'.
+		 */
+		namespaceName: _utils_namespaceName,
+		/**
+		 * Removes line-anchored static import statements (single or multi-line).
+		 * Browser bundles get their globals (ui, app) from the page, not from imports.
+		 *
+		 * @example stripImports("import ui from '#ui';\nexport default 1;"); // 'export default 1;'
+		 * @param {string} content - The file content.
+		 * @returns {string} The content without import statements.
+		 */
+		stripImports: _utils_stripImports,
 	},
 };

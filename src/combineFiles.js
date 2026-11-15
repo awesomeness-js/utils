@@ -1,6 +1,14 @@
-// main-module/index.js
 import { readdirSync, statSync, readFileSync } from 'fs';
+import combineNamespacedDir from './utils/combineNamespacedDir.js';
+import namespaceInits from './utils/namespaceInits.js';
 
+/**
+ * Combines every file of one type in a folder (recursively, sorted) into one string.
+ * With namespace, each file's `export default` is assigned to a name from its path:
+ * combineFiles(dir, 'js', { namespace: 'app' }) turns state/create.js into app.state.create = function…
+ * Namespace defaults: indexIsParent, parentInits, and stripImports are all true.
+ * processContent({ content, path, name }) runs after the namespace rewrite.
+ */
 function combineFiles(dir, fileType, {
 	minify = false,
 	processContent = ({
@@ -10,7 +18,25 @@ function combineFiles(dir, fileType, {
 		return content; 
 
 	},
+	namespace = null,
+	indexIsParent = true,
+	parentInits = true,
+	stripImports = true,
 } = {}) {
+
+	if(namespace){
+
+		const options = {
+			fileType,
+			indexIsParent,
+			parentInits,
+			stripImports,
+			processContent,
+		};
+
+		return (parentInits ? namespaceInits({ name: namespace }) : '') + combineNamespacedDir(dir, namespace, options);
+
+	}
 
 	var returnString = "";
 
@@ -18,7 +44,6 @@ function combineFiles(dir, fileType, {
 
 	// sort it
 	stuff = stuff.sort();
-		
 
 	stuff.forEach((stuff) => {
 

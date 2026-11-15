@@ -141,6 +141,38 @@ roxbury.didYouGrabMyAss();
 
 ---
 
+## 🧩 combineFiles with a namespace (browser bundles)
+
+`combineFiles` joins every file of one type in a folder into one string. Add `namespace` and each file's `export default` is assigned to a name built from its folder path and file name, so browser files can all use the same anonymous `export default function(...)` format.
+
+```js
+import { combineFiles } from '@awesomeness-js/utils';
+
+// core/js/app/state/create.js  ->  app.state.create = function…
+combineFiles('./core/js/app', 'js', { namespace: 'app' });
+
+// components/button/index.js  ->  ui.button = function…
+// components/button/list.js   ->  ui.button.list = function…
+combineFiles('./components', 'js', { namespace: 'ui' });
+
+// pages/start/js/header.js    ->  app.pages.start.header = function…
+combineFiles(jsPath, 'js', { namespace: `app.pages.${page}` });
+```
+
+Only `namespace` is needed. The defaults cover the common case:
+
+| option | default | what it does |
+| --- | --- | --- |
+| `namespace` | `null` | Off: files are joined exactly as before. |
+| `indexIsParent` | `true` | `button/index.js` is `ui.button`, and it is placed first in its folder so the parent exists before its children. |
+| `parentInits` | `true` | Adds `ui.button = ui.button \|\| {};` lines so parents exist. The root global (`app`, `ui`) is never assigned. |
+| `stripImports` | `true` | Removes `import … from '…';` lines (`import ui from '#ui'`), since the browser gets globals from the page. |
+| `processContent` | identity | Still supported. With `namespace` it runs **after** the rewrite and gets `{ content, path, name }`. |
+
+The rewrite is one line-anchored replace (`/^export default\s+/m`), so `export default function`, `export default async function`, `export default async () =>`, `export default () =>`, and `export default { … }` all work. `export default` in the middle of a line (comments, strings) is left alone. Windows, POSIX, and mixed slashes all give the same names. Folder or file names that are not valid identifiers use bracket notation (`app.pages["admin-users"]`).
+
+---
+
 ## 💪 Who’s This For?  
 
 - **Teams** who want **clean and consistent** APIs  
